@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3958886092413625535}
   - component: {fileID: 8628497332883373083}
   - component: {fileID: 5564296722009189381}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cabbage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3270542575029731369}
   - component: {fileID: 9141787498816337046}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cabbages
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 3797376405450889231}
   - component: {fileID: 5834586817349053927}
   - component: {fileID: 8083991328910170020}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Unripe_Cabbage_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 2136877755274305602}
   - component: {fileID: 4391898926362810914}
   - component: {fileID: 3093986910396779621}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Unripe_Cabbage_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
