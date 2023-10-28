@@ -7,10 +7,12 @@ public class DirtScript : MonoBehaviour
     public GameObject UnplowedDirtPrefab;
     public GameObject PlowedDirtPrefab;
     private bool isNearPlayer = false;
+    public PlayerItemSelector playerItemSelector;
 
     private void Update()
     {
-        if(isNearPlayer && Input.GetKeyDown(KeyCode.E))
+        if(isNearPlayer && Input.GetKeyDown(KeyCode.Space) 
+            && playerItemSelector.SelectedItemIndex == 1)
         {
             PlowDirt();
         }
