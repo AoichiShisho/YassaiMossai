@@ -7,6 +7,9 @@ public class PlayerPlantCollector : MonoBehaviour
 {
     public Text cabbageText;
     public Text tomatoText;
+
+    public Text deliveredText;
+    private int deliveredAmount = 0;
     
     private Dictionary<string, int> veggieCounts;
     private PlayerItemSelector itemSelector;
@@ -33,8 +36,10 @@ public class PlayerPlantCollector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PickupCabbage();
-        UpdateBasketImage();
+        if (Input.GetKeyDown(KeyCode.Space) && itemSelector.SelectedItemIndex == 0) {
+            PickupVeggie();
+            DeliverVeggie();
+        }
     }
 
     private void UpdateBasketImage() 
@@ -50,22 +55,19 @@ public class PlayerPlantCollector : MonoBehaviour
         itemSelector.SetBasketImage(allZero ? 0 : 1);
     }
 
-    private void PickupCabbage() 
+    private void PickupVeggie() 
     {
-        if (Input.GetKeyDown(KeyCode.Space) && itemSelector.SelectedItemIndex == 0) {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange, interactionLayer);
 
-            Debug.Log("PlayerPlantCollector: space pressed");
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange, interactionLayer);
+        foreach (var hitCollider in hitColliders) {
+            string tag = hitCollider.gameObject.tag;
+            if (veggieCounts.ContainsKey(tag)) {
+                Destroy(hitCollider.gameObject.transform.parent.gameObject);
+                veggieCounts[tag]++;
 
-            foreach (var hitCollider in hitColliders) {
-                string tag = hitCollider.gameObject.tag;
-                if (veggieCounts.ContainsKey(tag)) {
-                    Debug.Log("Found Ripe Veggie");
-                    Destroy(hitCollider.gameObject.transform.parent.gameObject);
-                    veggieCounts[tag]++;
-                    UpdateVeggieTexts();
-                    break;
-                }
+                UpdateVeggieTexts();
+                UpdateBasketImage();
+                break;
             }
         }
     }
@@ -79,5 +81,44 @@ public class PlayerPlantCollector : MonoBehaviour
         if (tomatoText != null) {
             tomatoText.text = veggieCounts["RipeTomato"].ToString();
         }
+    }
+    
+    private void DeliverVeggie() {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange);
+        bool isNearDeliveryPoint = false;
+
+        foreach (var hitCollider in hitColliders) {
+            if (hitCollider.gameObject.tag == "DeliveryPoint") {
+                isNearDeliveryPoint = true;
+                break;
+            }
+        }
+
+        if (isNearDeliveryPoint && GetTotalVeggies() > 0) {
+            deliveredAmount += GetTotalVeggies();
+
+            var keys = new List<string>(veggieCounts.Keys);
+            foreach (var key in keys) {
+                veggieCounts[key] = 0;
+            }
+
+            UpdateVeggieTexts();
+
+            if (deliveredText != null) {
+                deliveredText.text = "Delivered: " + deliveredAmount;
+            }
+
+            UpdateBasketImage();
+        }
+    }
+
+    private int GetTotalVeggies()
+    {
+        int total = 0;
+        foreach (var count in veggieCounts.Values) {
+            total += count;
+        }
+
+        return total;
     }
 }
