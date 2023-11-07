@@ -6,9 +6,12 @@ using UnityEngine.UI;
 public class PlayerPlantCollector : MonoBehaviour
 {
     public Text cabbageText;
-    private int cabbageCount = 0;
+    public Text tomatoText;
+    
+    // private int cabbageCount = 0;
+    private Dictionary<string, int> veggieCounts;
     private PlayerItemSelector itemSelector;
-    private float interactionRange = 5.0f;
+    private float interactionRange = 1.0f;
 
     [SerializeField]
     private LayerMask interactionLayer;
@@ -20,6 +23,12 @@ public class PlayerPlantCollector : MonoBehaviour
         if (itemSelector == null) {
             Debug.LogError("PlayerPlantCollector: itemSelector is null");
         }
+
+        veggieCounts = new Dictionary<string, int>
+        {
+            { "RipeCabbage", 0 },
+            { "RipeTomato", 0 },
+        };
     }
 
     // Update is called once per frame
@@ -34,20 +43,24 @@ public class PlayerPlantCollector : MonoBehaviour
             Debug.Log("PlayerPlantCollector: space pressed");
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange, interactionLayer);
             foreach (var hitCollider in hitColliders) {
-                if (hitCollider.gameObject.tag == "RipeCabbage") {
-                    Debug.Log("Found Ripe Cabbage");
-                    cabbageCount++;
-                    UpdateCabbageText();
-                    break;
-                }
+                string tag = hitCollider.gameObject.tag;
+                Debug.Log("Found Ripe Veggie");
+                Destroy(hitCollider.gameObject.transform.parent.gameObject);
+                veggieCounts[tag]++;
+                UpdateVeggieTexts();
+                break;
             }
         }
     }
 
-    private void UpdateCabbageText()
+    private void UpdateVeggieTexts()
     {
         if (cabbageText != null) {
-            cabbageText.text = cabbageCount.ToString();
+            cabbageText.text = veggieCounts["RipeCabbage"].ToString();
+        }
+
+        if (tomatoText != null) {
+            tomatoText.text = veggieCounts["RipeTomato"].ToString();
         }
     }
 }
