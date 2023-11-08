@@ -482,7 +482,7 @@ GameObject:
   - component: {fileID: 497812798}
   m_Layer: 0
   m_Name: Box
-  m_TagString: Untagged
+  m_TagString: DeliveryPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -662,7 +662,7 @@ GameObject:
   - component: {fileID: 595156715}
   - component: {fileID: 595156714}
   m_Layer: 5
-  m_Name: DeliveredAmount
+  m_Name: DeliveredCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1107,6 +1107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cabbageText: {fileID: 178167953}
   tomatoText: {fileID: 1699497515}
+  deliveredText: {fileID: 595156715}
   interactionLayer:
     serializedVersion: 2
     m_Bits: 64
