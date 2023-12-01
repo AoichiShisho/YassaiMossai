@@ -39,6 +39,7 @@ public class PlayerPlantCollector : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && itemSelector.SelectedItemIndex == 0) {
             PickupVeggie();
             DeliverVeggie();
+            DisposeVeggie();
         }
     }
 
@@ -108,6 +109,30 @@ public class PlayerPlantCollector : MonoBehaviour
                 deliveredText.text = "Delivered: " + deliveredAmount;
             }
 
+            UpdateBasketImage();
+        }
+    }
+
+    private void DisposeVeggie() {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange);
+        bool isNearDeliveryPoint = false;
+
+        foreach (var hitCollider in hitColliders) {
+            if (hitCollider.gameObject.tag == "DisposePoint") {
+                isNearDeliveryPoint = true;
+                break;
+            }
+        }
+
+        if (isNearDeliveryPoint && GetTotalVeggies() > 0) {
+            deliveredAmount += GetTotalVeggies();
+
+            var keys = new List<string>(veggieCounts.Keys);
+            foreach (var key in keys) {
+                veggieCounts[key] = 0;
+            }
+
+            UpdateVeggieTexts();
             UpdateBasketImage();
         }
     }

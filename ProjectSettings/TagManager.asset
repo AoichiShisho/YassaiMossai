@@ -9,6 +9,7 @@ TagManager:
   - Plant
   - RipeCabbage
   - DeliveryPoint
+  - DisposePoint
   layers:
   - Default
   - TransparentFX
