@@ -7,19 +7,13 @@ using UnityEngine.UI;
 public class DeviceDetector : MonoBehaviour
 {
     public Dropdown deviceDropdown;
-    private List<InputDevice> devices;
+    private List<InputDevice> devices;    
+    public PlayerMovement playerMovement;
 
-    // Start is called before the first frame update
     void Start()
     {
         devices = new List<InputDevice>();
         UpdateDeviceDropdown();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void UpdateDeviceDropdown()
@@ -30,10 +24,18 @@ public class DeviceDetector : MonoBehaviour
         foreach (var device in InputSystem.devices) {
             if (device is Gamepad || device is Keyboard) {
                 devices.Add(device);
-                options.Add(device.displayName);
+                string displayName = $"{device.displayName} (ID: {device.deviceId})";
+                options.Add(displayName);
             }
         }
 
         deviceDropdown.AddOptions(options);
+    }
+
+    public void OnDeviceSelected(int index)
+    {
+        InputDevice selectedDevice = devices[index];
+        Debug.Log($"Selected device: {selectedDevice.displayName} (ID: {selectedDevice.deviceId})");
+        playerMovement.SetInputDevice(selectedDevice);
     }
 }
