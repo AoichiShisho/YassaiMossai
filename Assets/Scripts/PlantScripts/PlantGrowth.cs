@@ -7,6 +7,18 @@ public class PlantGrowth : MonoBehaviour
     public GameObject[] growthStages;
     private int currentStage = 0;
     public float growthTime = 5f;
+    private State currentState = State.Alive;
+
+    public enum State
+    {
+        Alive,
+        Death
+    }
+
+    public State CurrentState
+    {
+        get { return currentState; }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +38,20 @@ public class PlantGrowth : MonoBehaviour
             growthStages[currentStage].SetActive(false);
             currentStage++;
             growthStages[currentStage].SetActive(true);
+
+            UpdateState();
+        }
+    }
+
+    private void UpdateState()
+    {
+        if (currentStage < 3)
+        {
+            currentState = State.Alive;
+        }
+        else
+        {
+            currentState = State.Death;
         }
     }
 }
