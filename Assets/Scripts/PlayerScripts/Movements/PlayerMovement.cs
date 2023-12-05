@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,8 +13,11 @@ public class PlayerMovement : MonoBehaviour
     private float rotationInput;
     private bool isRunning;
 
+    private InputDevice currentDevice;
+
     void Start()
     {
+        SetInputDevice(InputSystem.devices[0]);
         animator = GetComponent<Animator>();
     }
 
@@ -27,11 +31,26 @@ public class PlayerMovement : MonoBehaviour
         UpdateAnimation();
     }
 
+    public void SetInputDevice(InputDevice device) {
+        currentDevice = device;
+    }
+
     void GetInput()
     {
-        movementInput = Input.GetAxis("Vertical");
-        rotationInput = Input.GetAxis("Horizontal");
-        isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        if (currentDevice is Gamepad gamepad) {
+            Vector2 stickInput = gamepad.leftStick.ReadValue();
+            movementInput = stickInput.y;
+            rotationInput = stickInput.x;
+            isRunning = gamepad.leftTrigger.isPressed;
+        }
+        else if (currentDevice is Keyboard) {
+            movementInput = Input.GetAxis("Vertical");
+            rotationInput = Input.GetAxis("Horizontal");
+            isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        }
+        else {
+            Debug.LogError("PlayerMovement: Unknown device type");
+        }
     }
 
     void Move()
