@@ -14,6 +14,7 @@ public class PlayerPlantCollector : MonoBehaviour
     private Dictionary<string, int> veggieCounts;
     private PlayerItemSelector itemSelector;
     private float interactionRange = 1.0f;
+    public PlantGrowth plantGrowth;
 
     [SerializeField]
     private LayerMask interactionLayer;
@@ -106,7 +107,11 @@ public class PlayerPlantCollector : MonoBehaviour
             UpdateVeggieTexts();
 
             if (deliveredText != null) {
-                deliveredText.text = "Delivered: " + deliveredAmount;
+                PlantGrowth.State state = plantGrowth.CurrentState;
+                if (state != PlantGrowth.State.Death)
+                {
+                    deliveredText.text = "Delivered: " + deliveredAmount;
+                }
             }
 
             UpdateBasketImage();
