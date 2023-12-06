@@ -29,7 +29,7 @@ public class PlayerPlant : MonoBehaviour
     }
 
     void PlantCabbage() {
-        Vector3 positionToPlant = currentDirtTransform.position + new Vector3(0, 1, 0);
+        Vector3 positionToPlant = currentDirtTransform.position + new Vector3(0, 0.2f, 0);
         Instantiate(cabbagePrefab, positionToPlant, Quaternion.identity);
     }
 
