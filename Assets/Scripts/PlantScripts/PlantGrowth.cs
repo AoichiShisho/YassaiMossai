@@ -40,6 +40,7 @@ public class PlantGrowth : MonoBehaviour
             growthStages[currentStage].SetActive(true);
 
             UpdateState();
+            Debug.Log("current state is : " + currentState);
         }
     }
 

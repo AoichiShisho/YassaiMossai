@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class PlayerPlant : MonoBehaviour
 {
-    public GameObject cabbagePrefab;
+    public GameObject[] vegetables;
     private bool isOnPlowedDirt = false;
     private Transform currentDirtTransform;
 
     private bool isPlanting = false;
 
-    // Start is called before the first frame update
-    void Start()
+    private PlayerVegetableSelector vegetableSelector;
+
+        void Start()
     {
-        
+        vegetableSelector = GetComponent<PlayerVegetableSelector>();
+        if (vegetableSelector == null) {
+            Debug.LogError("PlayerPlant: vegetableSelector is null");
+        }
     }
 
     // Update is called once per frame
@@ -21,16 +25,16 @@ public class PlayerPlant : MonoBehaviour
     {
         if (isOnPlowedDirt && Input.GetKeyDown(KeyCode.R) && !isPlanting) {
             isPlanting = true;
-            PlantCabbage();
+            PlantVegetable();
         } else if (isOnPlowedDirt && Input.GetKeyDown(KeyCode.R) && isPlanting) {
             // あとで変更、植えられなかった時のUIを考える
             Debug.Log("Can't plant, dirt is occupied.");
         }
     }
 
-    void PlantCabbage() {
-        Vector3 positionToPlant = currentDirtTransform.position + new Vector3(0, 0.2f, 0);
-        Instantiate(cabbagePrefab, positionToPlant, Quaternion.identity);
+    void PlantVegetable() {
+        Vector3 positionToPlant = currentDirtTransform.position + new Vector3(0, 0.1f, 0);
+        Instantiate(vegetables[vegetableSelector.SelectedVegetableIndex], positionToPlant, Quaternion.identity);
     }
 
     void OnTriggerEnter(Collider other) {
