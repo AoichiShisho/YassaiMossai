@@ -29,23 +29,27 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetInputDevice(InputDevice device) {
         currentDevice = device;
+        Debug.Log("PlayerMovement: SetInputDevice: " + device);
     }
 
     void GetInput()
     {
-        if (currentDevice is Gamepad gamepad) {
-            movementInput = gamepad.leftStick.ReadValue();
-            isRunning = gamepad.leftTrigger.isPressed;
-
-            RotateTowardsMovementDirection(movementInput);
-        }
-        else if (currentDevice is Keyboard) {
-            movementInput.x = Input.GetAxis("Horizontal");
-            movementInput.y = Input.GetAxis("Vertical");
-            isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-        }
-        else {
-            Debug.LogError("PlayerMovement: Unknown device type");
+        if (currentDevice != null) {
+            if (currentDevice is Gamepad gamepad) {
+                movementInput = gamepad.leftStick.ReadValue();
+                if (gamepad.leftStickButton.wasPressedThisFrame) {
+                    isRunning = !isRunning;
+                }
+            }
+            else if (currentDevice is Keyboard) {
+                movementInput.x = Input.GetAxis("Horizontal");
+                movementInput.y = Input.GetAxis("Vertical");
+                isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+            }
+            else {
+                Debug.LogError("PlayerMovement: Unknown device type");
+                return;
+            }
         }
     }
 
@@ -55,8 +59,15 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movement = new Vector3(movementInput.x, 0, movementInput.y);
         transform.Translate(movement * currentSpeed * Time.deltaTime, Space.World);
 
-        if (!(currentDevice is Gamepad) && movement != Vector3.zero) {
-            RotateTowardsMovementDirection(movement);
+        if (movement != Vector3.zero) {
+            if (currentDevice is Gamepad) {
+                // Gamepadを使用している場合、左スティックの方向にキャラクターを向ける
+                Quaternion toRotation = Quaternion.LookRotation(movement, Vector3.up);
+                transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            } else if (currentDevice is Keyboard) {
+                // キーボードを使用している場合、移動方向にキャラクターを向ける
+                RotateTowardsMovementDirection(movement);
+            }
         }
     }
 
