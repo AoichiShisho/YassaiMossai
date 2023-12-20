@@ -11,8 +11,13 @@ public class PlayerPlant : MonoBehaviour
     private bool isPlanting = false;
 
     private PlayerVegetableSelector vegetableSelector;
+    private DirtScript dirtScript;
+    private DirtScript.DirtState dirtState;
+    private float interactionRange = 1.0f;
+    [SerializeField]
+    private LayerMask dirtLayer;
 
-        void Start()
+    void Start()
     {
         vegetableSelector = GetComponent<PlayerVegetableSelector>();
         if (vegetableSelector == null) {
@@ -23,12 +28,28 @@ public class PlayerPlant : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isOnPlowedDirt && Input.GetKeyDown(KeyCode.R) && !isPlanting) {
-            isPlanting = true;
-            PlantVegetable();
-        } else if (isOnPlowedDirt && Input.GetKeyDown(KeyCode.R) && isPlanting) {
-            // あとで変更、植えられなかった時のUIを考える
-            Debug.Log("Can't plant, dirt is occupied.");
+        if (isOnPlowedDirt && Input.GetKeyDown(KeyCode.R))
+        {
+            Collider[] hitCollidersOfDirt = Physics.OverlapSphere(transform.position, interactionRange, dirtLayer);
+            foreach (var hitColliderOfDirt in hitCollidersOfDirt)
+            {
+                DirtScript dirtScript = hitColliderOfDirt.GetComponent<DirtScript>();
+                if (dirtScript != null && dirtScript.CompareTag("Dirt"))
+                {
+                    Debug.Log(dirtScript.CurrentDirtState);
+                    if (dirtScript.CurrentDirtState == DirtScript.DirtState.Empty)
+                    {
+                        PlantVegetable();
+                    }
+                    else if (dirtScript.CurrentDirtState == DirtScript.DirtState.Planted)
+                    {
+                        // あとで変更、植えられなかった時のUIを考える
+                        Debug.Log("Can't plant, dirt is occupied.");
+                    }
+                    dirtScript.CurrentDirtState = DirtScript.DirtState.Planted;
+                    break;
+                }
+            }
         }
     }
 
@@ -38,16 +59,27 @@ public class PlayerPlant : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Plowed")) {
+        if (HasPlowedChild(other.transform)) {
             isOnPlowedDirt = true;
             currentDirtTransform = other.transform;
         }
     }
 
     void OnTriggerExit(Collider other) {
-        if (other.CompareTag("Plowed")) {
-            isOnPlowedDirt = false;
-            currentDirtTransform = null;
+        isOnPlowedDirt = false;
+        isPlanting = false;
+        currentDirtTransform = null;
+    }
+
+    private bool HasPlowedChild(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.gameObject.activeInHierarchy && child.CompareTag("Plowed"))
+            {
+                return true;
+            }
         }
+        return false;
     }
 }

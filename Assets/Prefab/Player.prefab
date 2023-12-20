@@ -1974,9 +1974,13 @@ MonoBehaviour:
   cabbageText: {fileID: 0}
   tomatoText: {fileID: 0}
   deliveredText: {fileID: 0}
+  plantGrowth: {fileID: 0}
   interactionLayer:
     serializedVersion: 2
     m_Bits: 64
+  dirtLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &3146283227292269619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1989,7 +1993,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21d2fd48022047a5a1f635a8556c49b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cabbagePrefab: {fileID: 3409448076159634952, guid: ed63075f0c81f4bf8bde722a9d46b9f7, type: 3}
+  vegetables: []
+  OnPlantVeggie:
+    m_PersistentCalls:
+      m_Calls: []
+  dirtScript: {fileID: 8018439273445952089, guid: 581ebefdf755d489fa504ce8efcfcd3d, type: 3}
 --- !u!1 &2896722684787451004
 GameObject:
   m_ObjectHideFlags: 0

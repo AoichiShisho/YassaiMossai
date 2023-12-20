@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5229130863523818433}
   - component: {fileID: 8018439273445952089}
   - component: {fileID: 7406965402263993521}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dirt
-  m_TagString: Untagged
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,7 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnplowedDirtPrefab: {fileID: 8636866118824855577}
   PlowedDirtPrefab: {fileID: 8028717475463135886}
-  playerItemSelector: {fileID: 1526467904153993459, guid: 29e83ce781e124c8793a12e8eea22b98, type: 3}
+  playerItemSelector: {fileID: 5285073477636088151, guid: a6e69b70dfe884c1cbb12af0392fa57b, type: 3}
+  playerPlant: {fileID: 3146283227292269619, guid: a6e69b70dfe884c1cbb12af0392fa57b, type: 3}
 --- !u!65 &7406965402263993521
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -83,7 +84,7 @@ GameObject:
   - component: {fileID: 7638695502149517610}
   - component: {fileID: 6092337355482170787}
   - component: {fileID: 3453131402882928177}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plowed_Dirt
   m_TagString: Plowed
   m_Icon: {fileID: 0}
@@ -188,7 +189,7 @@ GameObject:
   - component: {fileID: 8133286565840620104}
   - component: {fileID: 7390060046616646320}
   - component: {fileID: 4781135859214086898}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Unplowed_Dirt
   m_TagString: Unplowed
   m_Icon: {fileID: 0}

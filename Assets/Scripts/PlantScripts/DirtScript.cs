@@ -8,6 +8,20 @@ public class DirtScript : MonoBehaviour
     public GameObject PlowedDirtPrefab;
     private bool isNearPlayer = false;
     public PlayerItemSelector playerItemSelector;
+    private DirtState currentDirtState = DirtState.Empty;
+    public PlayerPlant playerPlant;
+
+    public enum DirtState
+    {
+        Empty,
+        Planted
+    }
+
+    public DirtState CurrentDirtState
+    {
+        get { return currentDirtState; }
+        set { currentDirtState = value; }
+    }
 
     private void Update()
     {
@@ -23,7 +37,6 @@ public class DirtScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isNearPlayer = true;
-            // Debug.Log("Player is near");
         }
     }
 
@@ -32,7 +45,6 @@ public class DirtScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isNearPlayer = false;
-            // Debug.Log("Player has left dirt");
         }
     }
 
@@ -41,8 +53,14 @@ public class DirtScript : MonoBehaviour
         Debug.Log("Plowing dirt");
         PlowedDirtPrefab.SetActive(true);
         UnplowedDirtPrefab.SetActive(false);
-        
-        // Instantiate(PlowedDirtPrefab, transform.position, Quaternion.identity);
     }
+
+    public void DamageDirt()
+    {
+        PlowedDirtPrefab.SetActive(false);
+        UnplowedDirtPrefab.SetActive(true);
+        currentDirtState = DirtState.Empty;
+    }
+
 }
 

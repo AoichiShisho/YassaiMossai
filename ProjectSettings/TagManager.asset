@@ -10,6 +10,8 @@ TagManager:
   - RipeCabbage
   - DeliveryPoint
   - DisposePoint
+  - RipeTomato
+  - Dirt
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - Water
   - UI
   - PlantLayer
-  - 
+  - DirtLayer
   - 
   - 
   - 
