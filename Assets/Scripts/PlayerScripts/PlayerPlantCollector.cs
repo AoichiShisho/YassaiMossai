@@ -18,6 +18,9 @@ public class PlayerPlantCollector : MonoBehaviour
 
     [SerializeField]
     private LayerMask interactionLayer;
+    [SerializeField]
+    private LayerMask dirtLayer;
+
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +35,7 @@ public class PlayerPlantCollector : MonoBehaviour
             { "RipeCabbage", 0 },
             { "RipeTomato", 0 },
         };
+
     }
 
     // Update is called once per frame
@@ -60,15 +64,25 @@ public class PlayerPlantCollector : MonoBehaviour
     private void PickupVeggie() 
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange, interactionLayer);
+        Collider[] hitCollidersOfDirt = Physics.OverlapSphere(transform.position, interactionRange, dirtLayer);
 
         foreach (var hitCollider in hitColliders) {
             string tag = hitCollider.gameObject.tag;
             if (veggieCounts.ContainsKey(tag)) {
                 Destroy(hitCollider.gameObject.transform.parent.gameObject);
                 veggieCounts[tag]++;
-
                 UpdateVeggieTexts();
                 UpdateBasketImage();
+                foreach (var hitColliderOfDirt in hitCollidersOfDirt)
+                {
+                    DirtScript dirtScript = hitColliderOfDirt.GetComponent<DirtScript>();
+                    if (dirtScript != null && dirtScript.CompareTag("Dirt"))
+                    {
+                        Debug.Log(dirtScript.CurrentDirtState);
+                        dirtScript.DamageDirt();
+                        break;
+                    }
+                }
                 break;
             }
         }
