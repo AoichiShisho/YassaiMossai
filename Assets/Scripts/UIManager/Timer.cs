@@ -47,6 +47,6 @@ public class Timer : MonoBehaviour
 
     void LoadResultScene()
     {
-        SceneManager.LoadScene("Result");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Result");
     }
 }

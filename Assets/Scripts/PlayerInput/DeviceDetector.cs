@@ -106,4 +106,14 @@ public class DeviceDetector : MonoBehaviour
 
         dropdown.AddOptions(options);
     }
+
+    public bool HasDeviceSelectionDuplicates() {
+        HashSet<int> uniqueDeviceIds = new HashSet<int>();
+        foreach (var deviceSelection in playerDeviceSelections.Values) {
+            if (deviceSelection != -1 && !uniqueDeviceIds.Add(deviceSelection)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
