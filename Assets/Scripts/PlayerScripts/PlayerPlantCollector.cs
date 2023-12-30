@@ -124,7 +124,7 @@ public class PlayerPlantCollector : MonoBehaviour
                 PlantGrowth.State state = plantGrowth.CurrentState;
                 if (state != PlantGrowth.State.Death)
                 {
-                    deliveredText.text = "Delivered: " + deliveredAmount;
+                    deliveredText.text = deliveredAmount.ToString();
                 }
             }
 
