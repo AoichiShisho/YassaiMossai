@@ -128,6 +128,16 @@ public class PlayerPlantCollector : MonoBehaviour
                 }
             }
 
+            if (ScoreManager.Instance != null)
+            {
+                ScoreManager.Instance.SetScore(deliveredAmount);
+                Debug.Log("Score updated: " + ScoreManager.Instance.Score);
+            }
+            else
+            {
+                Debug.LogError("ScoreManager instance is null.");
+            }
+
             UpdateBasketImage();
         }
     }
