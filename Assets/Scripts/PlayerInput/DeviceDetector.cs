@@ -7,9 +7,6 @@ public class DeviceDetector : MonoBehaviour
 {
     public List<Dropdown> playerDeviceDropdowns;
     private List<InputDevice> devices;
-    public List<PlayerMovement> playerMovements;
-
-    // <int, int>はそれぞれplayerIndexと入力デバイスのIDが入る
     private Dictionary<int, int> playerDeviceSelections = new Dictionary<int, int>();
 
     void Start()
@@ -20,16 +17,12 @@ public class DeviceDetector : MonoBehaviour
                 devices.Add(device);
             }
         }
-        InitializeDeviceSelections();
         UpdateDeviceDropdowns();
         InputSystem.onDeviceChange += OnDeviceChanged;
     }
 
-    private void InitializeDeviceSelections()
-    {
-        for (int i = 0; i < playerDeviceDropdowns.Count; i++) {
-            playerDeviceSelections[i] = -1;
-        }
+    public Dictionary<int, int> GetPlayerDeviceSelections() {
+        return playerDeviceSelections;
     }
 
     void OnDestroy()
@@ -47,7 +40,16 @@ public class DeviceDetector : MonoBehaviour
                     devices.Add(d);
                 }
             }
+            InitializeDeviceSelections();
             UpdateDeviceDropdowns();
+        }
+    }
+
+    private void InitializeDeviceSelections()
+    {
+        playerDeviceSelections.Clear();
+        for (int i = 0; i < playerDeviceDropdowns.Count; i++) {
+            playerDeviceSelections.Add(i, devices[i].deviceId);
         }
     }
 
@@ -56,13 +58,24 @@ public class DeviceDetector : MonoBehaviour
         for (int i = 0; i < playerDeviceDropdowns.Count; i++) {
             playerDeviceDropdowns[i].onValueChanged.RemoveAllListeners();
 
-            // playerDeviceDropdownが変更されたらOnDeviceSelectedを呼ぶ
             int localIndex = i;
             playerDeviceDropdowns[i].onValueChanged.AddListener((int deviceIndex) => {
                 OnDeviceSelected(localIndex, deviceIndex);
             });
 
             UpdateDropdownOptions(playerDeviceDropdowns[i], i);
+
+            // 利用可能なデバイスの中から最初のものをデフォルトとして設定
+            if (devices.Count > i) {
+                InputDevice defaultDevice = devices[i];
+                playerDeviceDropdowns[i].value = i;
+                playerDeviceSelections[i] = defaultDevice.deviceId;
+            } else {
+                playerDeviceDropdowns[i].value = 0;
+                playerDeviceSelections[i] = -1; // 未選択の状態を示す
+            }
+
+            playerDeviceDropdowns[i].RefreshShownValue();
         }
     }
 
@@ -71,15 +84,11 @@ public class DeviceDetector : MonoBehaviour
         InputDevice selectedDevice = devices[deviceIndex];
         playerDeviceSelections[playerIndex] = selectedDevice.deviceId;
 
-        if (playerIndex >= 0 && playerIndex < playerMovements.Count) {
-            playerMovements[playerIndex].SetInputDevice(selectedDevice);
-        }
+        PlayerPrefs.SetInt($"PlayerDeviceID_{playerIndex}", selectedDevice.deviceId);
+        PlayerPrefs.Save();
 
-        Debug.Log($"Player {playerIndex} selected device: {selectedDevice.displayName}");
-
-        // Dropdownの値と見た目を更新
-        playerDeviceDropdowns[playerIndex].value = deviceIndex;
-        playerDeviceDropdowns[playerIndex].RefreshShownValue();
+        Debug.Log($"Player {playerIndex + 1} selected device: {selectedDevice.displayName}");
+        Debug.Log($"Player {playerIndex + 1} selected deviceId: {selectedDevice.deviceId}");
     }
 
     private void UpdateDropdownOptions(Dropdown dropdown, int playerIndex)
@@ -96,5 +105,15 @@ public class DeviceDetector : MonoBehaviour
         }
 
         dropdown.AddOptions(options);
+    }
+
+    public bool HasDeviceSelectionDuplicates() {
+        HashSet<int> uniqueDeviceIds = new HashSet<int>();
+        foreach (var deviceSelection in playerDeviceSelections.Values) {
+            if (deviceSelection != -1 && !uniqueDeviceIds.Add(deviceSelection)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

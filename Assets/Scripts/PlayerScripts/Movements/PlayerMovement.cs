@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public int playerIndex;
     private float walkSpeed = 3.0f;
     private float runSpeed = 6.0f;
     private float rotationSpeed = 400.0f;
@@ -16,7 +17,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        SetInputDevice(InputSystem.devices[0]);
+        SetDeviceFromSavedPreferences();
+        // SetInputDevice(InputSystem.devices[0]);
         animator = GetComponent<Animator>();
     }
 
@@ -29,7 +31,23 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetInputDevice(InputDevice device) {
         currentDevice = device;
-        Debug.Log("PlayerMovement: SetInputDevice: " + device);
+        Debug.Log($"[Player {playerIndex}] Input device set: {device.displayName}");
+    }
+
+    private void SetDeviceFromSavedPreferences()
+    {
+        int deviceId = PlayerPrefs.GetInt($"PlayerDeviceID_{playerIndex}", -1);
+        if (deviceId != -1) {
+            var device = InputSystem.GetDeviceById(deviceId);
+            if (device != null) {
+                SetInputDevice(device);
+                Debug.Log($"[Player {playerIndex}] Device set to: {device.displayName}");
+            } else {
+                Debug.LogError($"[Player {playerIndex}] Saved device not found. Device ID: {deviceId}");
+            }
+        } else {
+            Debug.LogWarning($"[Player {playerIndex}] No device ID saved in PlayerPrefs.");
+        }
     }
 
     void GetInput()
