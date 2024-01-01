@@ -49,6 +49,7 @@ public class DeviceDetector : MonoBehaviour
     {
         playerDeviceSelections.Clear();
         for (int i = 0; i < playerDeviceDropdowns.Count; i++) {
+            Debug.Log($"Player {i + 1} selected deviceId: {PlayerPrefs.GetInt($"PlayerDeviceID_{i}")}");
             playerDeviceSelections.Add(i, devices[i].deviceId);
         }
     }
