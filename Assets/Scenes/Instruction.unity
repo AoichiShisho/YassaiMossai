@@ -471,6 +471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18162f217f3624f89838489616245746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deviceDetector: {fileID: 284805269}
 --- !u!1 &446733757
 GameObject:
   m_ObjectHideFlags: 0
