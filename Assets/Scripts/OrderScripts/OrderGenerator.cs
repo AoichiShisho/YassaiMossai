@@ -49,10 +49,12 @@ public class OrderGenerator : MonoBehaviour
                 break;
             case 1:
                 orderPrefab = orderMediumPrefab;
+                // orderPrefab = orderSmallPrefab;
                 numberOfVegetables = 2;
                 break;
             case 2:
                 orderPrefab = orderLargePrefab;
+                // orderPrefab = orderSmallPrefab;
                 numberOfVegetables = 3;
                 break;
         }
