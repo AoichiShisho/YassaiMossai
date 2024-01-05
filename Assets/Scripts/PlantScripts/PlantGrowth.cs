@@ -8,6 +8,7 @@ public class PlantGrowth : MonoBehaviour
     private int currentStage = 0;
     public float growthTime = 5f;
     private State currentState = State.Alive;
+    private Coroutine growthCoroutine;
 
     public enum State
     {
@@ -26,7 +27,7 @@ public class PlantGrowth : MonoBehaviour
         for (int i=1; i<growthStages.Length; i++) {
             growthStages[i].SetActive(false);
         }
-        StartCoroutine(GrowthCycle());
+        growthCoroutine = StartCoroutine(GrowthCycle());
     }
 
     IEnumerator GrowthCycle()
@@ -41,6 +42,15 @@ public class PlantGrowth : MonoBehaviour
 
             UpdateState();
             Debug.Log("current state is : " + currentState);
+        }
+    }
+
+    public void StopGrowth()
+    {
+        if (growthCoroutine != null)
+        {
+            StopCoroutine(growthCoroutine);
+            growthCoroutine = null;
         }
     }
 

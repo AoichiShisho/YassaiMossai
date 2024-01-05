@@ -12,6 +12,8 @@ TagManager:
   - DisposePoint
   - RipeTomato
   - Dirt
+  - Bomb
+  - Field
   layers:
   - Default
   - TransparentFX
