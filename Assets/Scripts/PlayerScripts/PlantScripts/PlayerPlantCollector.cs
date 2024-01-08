@@ -44,7 +44,7 @@ public class PlayerPlantCollector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && itemSelector.SelectedItemIndex == 0) {
+        if (Input.GetKeyDown(KeyCode.Space) && itemSelector.SelectedItemIndex == 1) {
             if (playerState.CurrentState == PlayerState.PlayerItemState.NotHolding || playerState.CurrentState != PlayerState.PlayerItemState.LimitedHolding)
             {
                 PickupVeggie();

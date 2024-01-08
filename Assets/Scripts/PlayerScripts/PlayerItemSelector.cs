@@ -54,7 +54,7 @@ public class PlayerItemSelector : MonoBehaviour
     public void SetBasketImage(int index)
     {
         if (basketSprites.Length > index) {
-            itemSprites[0] = basketSprites[index];
+            itemSprites[1] = basketSprites[index];
             selectedItemImage.sprite = itemSprites[selectedItemIndex];
         } else {
             Debug.LogError("SetBasketImage: Index out of range.");
