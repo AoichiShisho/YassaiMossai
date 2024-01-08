@@ -11,6 +11,8 @@ public class PlayerItemSelector : MonoBehaviour
 
     public Sprite[] basketSprites;
 
+    [SerializeField] private PlayerState playerState;
+
     public int SelectedItemIndex
     {
         get { return selectedItemIndex; }
@@ -25,14 +27,20 @@ public class PlayerItemSelector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q)) {
-            selectedItemIndex = (selectedItemIndex - 1 + itemSprites.Length) % itemSprites.Length;
-            Debug.Log("selected item number is: " + selectedItemIndex);
-            UpdateSelectedItem();
-        } if (Input.GetKeyDown(KeyCode.E)) {
-            selectedItemIndex = (selectedItemIndex + 1) % itemSprites.Length;
-            Debug.Log("selected item number is: " + selectedItemIndex);
-            UpdateSelectedItem();
+        if (playerState.CurrentState == PlayerState.PlayerItemState.NotHolding)
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                selectedItemIndex = (selectedItemIndex - 1 + itemSprites.Length) % itemSprites.Length;
+                Debug.Log("selected item number is: " + selectedItemIndex);
+                UpdateSelectedItem();
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                selectedItemIndex = (selectedItemIndex + 1) % itemSprites.Length;
+                Debug.Log("selected item number is: " + selectedItemIndex);
+                UpdateSelectedItem();
+            }
         }
     }
 
