@@ -12,6 +12,7 @@ public class PlayerPlantCollector : MonoBehaviour
     private int deliveredAmount = 0;
     
     private Dictionary<string, int> veggieCounts;
+    private PlayerItemSelector itemSelector;
     private float interactionRange = 1.0f;
     public PlantGrowth plantGrowth;
 
@@ -26,6 +27,11 @@ public class PlayerPlantCollector : MonoBehaviour
 
     void Start()
     {
+        itemSelector = GetComponent<PlayerItemSelector>();
+        if (itemSelector == null)
+        {
+            Debug.LogError("PlayerPlantCollector: itemSelector is null");
+        }
 
         veggieCounts = new Dictionary<string, int>
         {
@@ -38,8 +44,8 @@ public class PlayerPlantCollector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            if (pickedVeggie == null && playerState.CurrentState == PlayerState.PlayerItemState.NotHolding)
+        if (Input.GetKeyDown(KeyCode.Space) && itemSelector.SelectedItemIndex == 0) {
+            if (playerState.CurrentState == PlayerState.PlayerItemState.NotHolding || playerState.CurrentState != PlayerState.PlayerItemState.LimitedHolding)
             {
                 PickupVeggie();
             }
@@ -51,6 +57,21 @@ public class PlayerPlantCollector : MonoBehaviour
         }
     }
 
+    private void UpdateBasketImage()
+    {
+        bool allZero = true;
+        foreach (var count in veggieCounts.Values)
+        {
+            if (count != 0)
+            {
+                allZero = false;
+                break;
+            }
+        }
+
+        itemSelector.SetBasketImage(allZero ? 0 : 1);
+    }
+
     private void PickupVeggie() 
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange, interactionLayer);
@@ -59,27 +80,15 @@ public class PlayerPlantCollector : MonoBehaviour
         foreach (var hitCollider in hitColliders) {
             string tag = hitCollider.gameObject.tag;
             if (veggieCounts.ContainsKey(tag)) {
-                Transform parentTransform = hitCollider.transform.parent;
-                if (parentTransform != null)
-                {
-                    var plantGrowthScript = parentTransform.GetComponent<PlantGrowth>();
-                    if (plantGrowthScript)
-                    {
-                        plantGrowthScript.StopGrowth();
-                        plantGrowthScript.enabled = false;
-                    }
-                }
-                pickedVeggie = hitCollider.gameObject;
-                Rigidbody rb = hitCollider.GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    Destroy(rb);
-                }
-                pickedVeggie.transform.SetParent(transform);
-                pickedVeggie.transform.localPosition = new Vector3(0, 0.4f, 0.3f);
+                Destroy(hitCollider.gameObject.transform.parent.gameObject);
                 veggieCounts[tag]++;
                 UpdateVeggieTexts();
+                UpdateBasketImage();
                 playerState.CurrentState = PlayerState.PlayerItemState.Holding;
+                if (GetTotalVeggies() == 3)
+                {
+                    playerState.CurrentState = PlayerState.PlayerItemState.LimitedHolding;
+                }
                 foreach (var hitColliderOfDirt in hitCollidersOfDirt)
                 {
                     DirtScript dirtScript = hitColliderOfDirt.GetComponent<DirtScript>();
@@ -145,9 +154,8 @@ public class PlayerPlantCollector : MonoBehaviour
                 Debug.LogError("ScoreManager instance is null.");
             }
 
-            pickedVeggie.transform.SetParent(null);
+            UpdateBasketImage();
             playerState.CurrentState = PlayerState.PlayerItemState.NotHolding;
-            Destroy(pickedVeggie.gameObject);
 
         }
     }
@@ -171,11 +179,10 @@ public class PlayerPlantCollector : MonoBehaviour
                 veggieCounts[key] = 0;
             }
 
-            pickedVeggie.transform.SetParent(null);
             playerState.CurrentState = PlayerState.PlayerItemState.NotHolding;
-            Destroy(pickedVeggie.gameObject);
 
             UpdateVeggieTexts();
+            UpdateBasketImage();
         }
     }
 
