@@ -1816,7 +1816,6 @@ GameObject:
   - component: {fileID: 5993164622106418132}
   - component: {fileID: 7181418401502637492}
   - component: {fileID: 5285073477636088151}
-  - component: {fileID: 2413809573937214354}
   - component: {fileID: 5401965762448863213}
   - component: {fileID: 3074962013704710412}
   - component: {fileID: 3146283227292269619}
@@ -1905,6 +1904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61fd7db1242854923935f1607e79ee39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerIndex: 0
 --- !u!114 &5285073477636088151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1925,19 +1925,6 @@ MonoBehaviour:
   basketSprites:
   - {fileID: 21300000, guid: 4174432f393b04f60bdf26105c0745e7, type: 3}
   - {fileID: 21300000, guid: ab898829c01fe4fe5bb977e71aa99cd9, type: 3}
---- !u!114 &2413809573937214354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2741815290209898058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9208488c024764e109357a6ad4c15000, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickedCabbage: {fileID: 0}
 --- !u!65 &5401965762448863213
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1994,10 +1981,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vegetables: []
-  OnPlantVeggie:
-    m_PersistentCalls:
-      m_Calls: []
-  dirtScript: {fileID: 8018439273445952089, guid: 581ebefdf755d489fa504ce8efcfcd3d, type: 3}
+  dirtLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &2896722684787451004
 GameObject:
   m_ObjectHideFlags: 0
