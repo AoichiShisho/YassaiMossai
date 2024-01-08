@@ -13,14 +13,12 @@ public class OrderSmall : OrderBase
 
     public override void InitializeOrder(List<VegetableType> vegetables) 
     {
-        this.vegetables = vegetables;
+        this.vegetables = RandomizeVegetables(1);
         DisplayOrder();
     }
 
     public override void DisplayOrder()
     {
-        if (vegetables.Count > 0) {
-            SetVegetableImage(vegetables[0], vegetableImage, tomatoSprite, cabbageSprite);
-        }
+        SetVegetableImage(vegetables[0], vegetableImage, tomatoSprite, cabbageSprite);
     }
 }

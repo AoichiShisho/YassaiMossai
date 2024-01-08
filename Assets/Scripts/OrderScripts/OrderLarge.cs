@@ -13,16 +13,14 @@ public class OrderLarge : OrderBase
 
     public override void InitializeOrder(List<VegetableType> vegetables)
     {
-        this.vegetables = vegetables;
+        this.vegetables = RandomizeVegetables(3);
         DisplayOrder();
     }
 
     public override void DisplayOrder()
     {
         for (int i = 0; i < vegetables.Count; i++) {
-            if (i < vegetableImages.Count) {
-                SetVegetableImage(vegetables[i], vegetableImages[i], tomatoSprite, cabbageSprite);
-            }
+            SetVegetableImage(vegetables[i], vegetableImages[i], tomatoSprite, cabbageSprite);
         }
     }
 }

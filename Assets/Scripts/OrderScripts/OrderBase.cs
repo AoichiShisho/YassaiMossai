@@ -77,7 +77,19 @@ public abstract class OrderBase : MonoBehaviour, IOrder
             case VegetableType.Cabbage:
                 vegetableImage.sprite = cabbageSprite;
                 break;
-            // 他の野菜タイプに対応する場合はここに追加
         }
+    }
+
+    protected List<VegetableType> RandomizeVegetables(int count)
+    {
+        var randomType = (VegetableType)Random.Range(0, System.Enum.GetValues(typeof(VegetableType)).Length);
+        var vegetables = new List<VegetableType>();
+
+        for (int i = 0; i < count; i++)
+        {
+            vegetables.Add(randomType);
+        }
+
+        return vegetables;
     }
 }
