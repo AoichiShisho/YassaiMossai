@@ -9,13 +9,12 @@ public class PlayerBombPicker : MonoBehaviour
     [SerializeField] private float throwForce;
 
     [SerializeField] private PlayerState playerState;
-    //PlayerState._PlayerState _playerState = PlayerState._PlayerState.NotHolding;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (pickedBomb == null && playerState.CurrentState == PlayerState._PlayerState.NotHolding)
+            if (pickedBomb == null && playerState.CurrentState == PlayerState.PlayerItemState.NotHolding)
             {
                 PickUpBomb();
             }
@@ -38,7 +37,7 @@ public class PlayerBombPicker : MonoBehaviour
                 pickedBomb = hitCollider.gameObject;
                 pickedBomb.transform.SetParent(transform);
                 pickedBomb.transform.localPosition = new Vector3(0, 0.4f, 0.3f);
-                playerState.CurrentState = PlayerState._PlayerState.Holding;
+                playerState.CurrentState = PlayerState.PlayerItemState.Holding;
                 Transform stable = pickedBomb.transform.Find("Stable");
                 if (stable != null)
                 {
@@ -66,7 +65,7 @@ public class PlayerBombPicker : MonoBehaviour
 
             rb.AddForce(throwDirection * throwForce);
             pickedBomb = null;
-            playerState.CurrentState = PlayerState._PlayerState.NotHolding;
+            playerState.CurrentState = PlayerState.PlayerItemState.NotHolding;
         }
     }
 

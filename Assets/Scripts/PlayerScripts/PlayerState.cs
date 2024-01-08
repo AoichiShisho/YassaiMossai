@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-    private _PlayerState currentState = _PlayerState.NotHolding;
+    private PlayerItemState currentState = PlayerItemState.NotHolding;
 
-    public enum _PlayerState
+    public enum PlayerItemState
     {
         Holding,
         NotHolding
     }
 
-    public _PlayerState CurrentState
+    public PlayerItemState CurrentState
     {
         get { return currentState; }
         set { currentState = value; }
