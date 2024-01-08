@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 1812268689246565578}
   - component: {fileID: 3370958194903198993}
   - component: {fileID: 1526467904153993459}
-  - component: {fileID: 76032042994848748}
   m_Layer: 3
   m_Name: OldPlayer
   m_TagString: Player
@@ -151,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61fd7db1242854923935f1607e79ee39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerIndex: 0
 --- !u!114 &3370958194903198993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +163,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21d2fd48022047a5a1f635a8556c49b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cabbagePrefab: {fileID: 3409448076159634952, guid: ed63075f0c81f4bf8bde722a9d46b9f7, type: 3}
+  vegetables: []
+  dirtLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1526467904153993459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,20 +179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f930c974756e84943b3a7406f687b49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImages:
-  - {fileID: 21300000, guid: ab898829c01fe4fe5bb977e71aa99cd9, type: 3}
-  - {fileID: 21300000, guid: 782ede097567c44968846c850b20521a, type: 3}
-  - {fileID: 21300000, guid: 3f7534d70090d40fcafb16ac3370c851, type: 3}
+  itemSprites: []
   selectedItemImage: {fileID: 3467366325754038463, guid: 20ccd5e51b79048b99d34ae2b983919c, type: 3}
---- !u!114 &76032042994848748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4420696669929258893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9208488c024764e109357a6ad4c15000, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  basketSprites: []
