@@ -3629,7 +3629,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2741815290209898058, guid: a6e69b70dfe884c1cbb12af0392fa57b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3074962013704710412, guid: a6e69b70dfe884c1cbb12af0392fa57b, type: 3}
       propertyPath: tomatoText

@@ -49,7 +49,7 @@ public class PlayerPlantCollector : MonoBehaviour
             {
                 PickupVeggie();
             }
-            else
+            if (playerState.CurrentState == PlayerState.PlayerItemState.Holding || playerState.CurrentState == PlayerState.PlayerItemState.LimitedHolding)
             {
                 DeliverVeggie();
                 DisposeVeggie();
