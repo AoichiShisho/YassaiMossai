@@ -26,7 +26,7 @@ public class DirtScript : MonoBehaviour
     private void Update()
     {
         if(isNearPlayer && Input.GetKeyDown(KeyCode.Space) 
-            && playerItemSelector.SelectedItemIndex == 1)
+            && playerItemSelector.SelectedItemIndex == 0)
         {
             PlowDirt();
         }
