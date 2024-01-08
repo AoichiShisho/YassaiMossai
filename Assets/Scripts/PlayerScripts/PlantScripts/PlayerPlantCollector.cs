@@ -21,6 +21,8 @@ public class PlayerPlantCollector : MonoBehaviour
     private LayerMask dirtLayer;
 
     private GameObject pickedVeggie = null;
+    [SerializeField] private PlayerState playerState;
+    //PlayerState._PlayerState _playerState = PlayerState._PlayerState.NotHolding;
 
 
     void Start()
@@ -38,7 +40,7 @@ public class PlayerPlantCollector : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            if (pickedVeggie == null)
+            if (pickedVeggie == null && playerState.CurrentState == PlayerState._PlayerState.NotHolding)
             {
                 PickupVeggie();
             }
@@ -78,6 +80,7 @@ public class PlayerPlantCollector : MonoBehaviour
                 pickedVeggie.transform.localPosition = new Vector3(0, 0.4f, 0.3f);
                 veggieCounts[tag]++;
                 UpdateVeggieTexts();
+                playerState.CurrentState = PlayerState._PlayerState.Holding;
                 foreach (var hitColliderOfDirt in hitCollidersOfDirt)
                 {
                     DirtScript dirtScript = hitColliderOfDirt.GetComponent<DirtScript>();
@@ -144,6 +147,7 @@ public class PlayerPlantCollector : MonoBehaviour
             }
 
             pickedVeggie.transform.SetParent(null);
+            playerState.CurrentState = PlayerState._PlayerState.NotHolding;
             Destroy(pickedVeggie.gameObject);
 
         }
@@ -169,6 +173,7 @@ public class PlayerPlantCollector : MonoBehaviour
             }
 
             pickedVeggie.transform.SetParent(null);
+            playerState.CurrentState = PlayerState._PlayerState.NotHolding;
             Destroy(pickedVeggie.gameObject);
 
             UpdateVeggieTexts();
