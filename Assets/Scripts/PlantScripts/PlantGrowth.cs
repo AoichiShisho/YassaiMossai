@@ -57,7 +57,7 @@ public class PlantGrowth : MonoBehaviour
 
     private void UpdateState()
     {
-        if (currentStage < 3)
+        if (currentStage < growthStages.Length - 1)
         {
             currentState = State.Alive;
         }

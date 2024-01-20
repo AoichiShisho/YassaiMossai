@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 8628497332883373083}
   - component: {fileID: 5564296722009189381}
   m_Layer: 6
-  m_Name: Tomato
-  m_TagString: RipeTomato
+  m_Name: Cabbage
+  m_TagString: RipeCabbage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ad4bffe51d941463c91bbbf185b3b935, type: 2}
+  - {fileID: 2100000, guid: f8d4e519576f746f080b0743958b2611, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 3270542575029731369}
   - component: {fileID: 9141787498816337046}
   m_Layer: 6
-  m_Name: Tomato
+  m_Name: CabbagesTemp
   m_TagString: Plant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 5834586817349053927}
   - component: {fileID: 8083991328910170020}
   m_Layer: 6
-  m_Name: Unripe_Tomato_2
+  m_Name: Unripe_Cabbage_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -250,7 +250,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ad4bffe51d941463c91bbbf185b3b935, type: 2}
+  - {fileID: 2100000, guid: f8d4e519576f746f080b0743958b2611, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 4391898926362810914}
   - component: {fileID: 3093986910396779621}
   m_Layer: 6
-  m_Name: Unripe_Tomato_1
+  m_Name: Unripe_Cabbage_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -383,7 +383,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ad4bffe51d941463c91bbbf185b3b935, type: 2}
+  - {fileID: 2100000, guid: f8d4e519576f746f080b0743958b2611, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -516,7 +516,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ee2525a9f7e17474783d3cd01546a272, type: 2}
+  - {fileID: 2100000, guid: 659582d1b1d94402fbaf511d6c3b0fbc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
