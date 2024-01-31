@@ -15,11 +15,14 @@ public class PlayerMovement : MonoBehaviour
 
     private InputDevice currentDevice;
 
+    public ParticleSystem dustEffect;
+
     void Start()
     {
         SetDeviceFromSavedPreferences();
         // SetInputDevice(InputSystem.devices[0]);
         animator = GetComponent<Animator>();
+        SetDustEffectPosition();
     }
 
     void Update()
@@ -27,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
         GetInput();
         Move();
         UpdateAnimation();
+        UpdateDustEffect();
     }
 
     public void SetInputDevice(InputDevice device) {
@@ -108,5 +112,37 @@ public class PlayerMovement : MonoBehaviour
         float speedFactor = isRunning ? 2.0f : 1.0f;
         float speed = movementInput.magnitude * speedFactor;
         animator.SetFloat("Speed", speed);
+    }
+
+    void UpdateDustEffect()
+    {
+        var emission = dustEffect.emission;
+        var main = dustEffect.main;
+        var shape = dustEffect.shape;
+
+        if (movementInput.magnitude > 0) {
+            if (!dustEffect.isPlaying) {
+                dustEffect.Play();
+            }
+            if (isRunning) {
+                emission.rateOverTime = 20;
+                main.startLifetime = 0.5f;
+                shape.radius = 0.3f;
+            } else {
+                emission.rateOverTime = 10;
+                main.startLifetime = 1.0f;
+                shape.radius = 0.1f;
+            }
+        } else {
+            if (dustEffect.isPlaying) {
+                dustEffect.Stop();
+            }
+        }
+    }
+
+    private void SetDustEffectPosition()
+    {
+        var main = dustEffect.main;
+        main.simulationSpace = ParticleSystemSimulationSpace.World;
     }
 }
