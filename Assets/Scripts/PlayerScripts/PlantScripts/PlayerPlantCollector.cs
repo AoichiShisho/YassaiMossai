@@ -24,6 +24,7 @@ public class PlayerPlantCollector : MonoBehaviour
     private GameObject pickedVeggie = null;
     [SerializeField] private PlayerState playerState;
 
+    public ParticleSystem disposeEffect;
 
     void Start()
     {
@@ -166,6 +167,18 @@ public class PlayerPlantCollector : MonoBehaviour
 
         foreach (var hitCollider in hitColliders) {
             if (hitCollider.gameObject.tag == "DisposePoint") {
+                // ゴミ箱とエフェクトの場所を設定
+                Vector3 disposePosition = hitCollider.gameObject.transform.position;
+                Vector3 effectPosition = disposePosition + Vector3.up * (hitCollider.bounds.size.y + 0.5f);
+
+                // パーティクルエフェクトの再生
+                if (disposeEffect != null) {
+                    Instantiate(disposeEffect, effectPosition, Quaternion.identity);
+                    disposeEffect.Play();
+                } else {
+                    Debug.LogError("PlayerPlantCollector: disposeEffect is null");
+                }
+
                 isNearDeliveryPoint = true;
                 break;
             }
