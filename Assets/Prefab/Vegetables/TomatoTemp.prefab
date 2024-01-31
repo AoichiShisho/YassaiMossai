@@ -467,8 +467,8 @@ GameObject:
   - component: {fileID: 4776144309116592048}
   - component: {fileID: 8892231647904751192}
   m_Layer: 6
-  m_Name: death_Cabbage
-  m_TagString: RipeCabbage
+  m_Name: death_Tomato
+  m_TagString: RipeTomato
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
