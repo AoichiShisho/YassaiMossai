@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class OrderLarge : OrderBase
 {
-    protected override float timeLimit => 40f;
+    protected override float timeLimit => 50f;
 
     public List<Image> vegetableImages;
     public Sprite tomatoSprite;
@@ -14,6 +14,7 @@ public class OrderLarge : OrderBase
     public override void InitializeOrder(List<VegetableType> vegetables)
     {
         this.vegetables = RandomizeVegetables(3);
+        InitializeVegetableDeliveryStatus(this.vegetables);
         DisplayOrder();
     }
 
@@ -23,4 +24,26 @@ public class OrderLarge : OrderBase
             SetVegetableImage(vegetables[i], vegetableImages[i], tomatoSprite, cabbageSprite);
         }
     }
+
+    public override void DeliverVegetable(VegetableType vegetable)
+    {
+        for (int i = 0; i < vegetables.Count; i++)
+        {
+            print("Deliver確認Lg");
+            if (vegetables[i] == vegetable && !vegetableDeliveryStatus[(vegetable, i)])
+            {
+                var key = (vegetable, i);
+                vegetableDeliveryStatus[key] = true;
+
+                if (vegetableImages[i] != null)
+                {
+                    vegetableImages[i].gameObject.SetActive(false);
+                }
+
+                CheckIfOrderIsComplete();
+                break;
+            }
+        }
+    }
+
 }

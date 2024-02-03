@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public abstract class OrderBase : MonoBehaviour, IOrder
 {
     protected List<VegetableType> vegetables;
-    protected float timer;
+    protected Dictionary<(VegetableType, int), bool> vegetableDeliveryStatus;
+    public float timer;
     protected abstract float timeLimit { get; }
 
     public Image timeBar;
@@ -23,6 +24,16 @@ public abstract class OrderBase : MonoBehaviour, IOrder
         UpdateTimeBar();
         if (timer <= 0) {
             DestroyOrder();
+        }
+    }
+
+    protected void InitializeVegetableDeliveryStatus(List<VegetableType> vegetables)
+    {
+        vegetableDeliveryStatus = new Dictionary<(VegetableType, int), bool>();
+        for (int i = 0; i < vegetables.Count; i++)
+        {
+            var key = (vegetables[i], i); // タプルをキーとして使用
+            vegetableDeliveryStatus[key] = false;
         }
     }
 
@@ -92,4 +103,39 @@ public abstract class OrderBase : MonoBehaviour, IOrder
 
         return vegetables;
     }
+
+    public abstract void DeliverVegetable(VegetableType vegetable);
+
+    protected void CheckIfOrderIsComplete()
+    {
+        Debug.Log("Checking if order is complete...");
+
+        bool allDelivered = true;
+
+        foreach (var pair in vegetableDeliveryStatus)
+        {
+            Debug.Log($"Vegetable: {pair.Key}, Delivered: {pair.Value}");
+            if (!pair.Value)
+            {
+                allDelivered = false;
+                Debug.Log($"{pair.Key} is not delivered yet.");
+            }
+        }
+
+        if (allDelivered)
+        {
+            CompleteOrder();
+        }
+        else
+        {
+            Debug.Log("Order is not complete yet.");
+        }
+    }
+
+    protected void CompleteOrder()
+    {
+        Debug.Log("Order is complete!");
+        gameObject.SetActive(false);
+    }
+
 }

@@ -119,6 +119,7 @@ public class PlayerPlantCollector : MonoBehaviour
     private void DeliverVeggie() {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange);
         bool isNearDeliveryPoint = false;
+        OrderBase orderToDeliver = FindOrderWithSmallestTimer();
 
         foreach (var hitCollider in hitColliders) {
             if (hitCollider.gameObject.tag == "DeliveryPoint") {
@@ -127,12 +128,21 @@ public class PlayerPlantCollector : MonoBehaviour
             }
         }
 
-        if (isNearDeliveryPoint && GetTotalVeggies() > 0) {
+        if (isNearDeliveryPoint && GetTotalVeggies() > 0 && orderToDeliver != null) {
             deliveredAmount += GetTotalVeggies();
 
-            var keys = new List<string>(veggieCounts.Keys);
-            foreach (var key in keys) {
-                veggieCounts[key] = 0;
+
+            if (veggieCounts["RipeCabbage"] > 0)
+            {
+                orderToDeliver.DeliverVegetable(VegetableType.Cabbage);
+                print("キャベツ");
+                veggieCounts["RipeCabbage"] = 0;
+            }
+            if (veggieCounts["RipeTomato"] > 0)
+            {
+                orderToDeliver.DeliverVegetable(VegetableType.Tomato);
+                print("トマト");
+                veggieCounts["RipeTomato"] = 0;
             }
 
             UpdateVeggieTexts();
@@ -208,4 +218,24 @@ public class PlayerPlantCollector : MonoBehaviour
 
         return total;
     }
+
+    private OrderBase FindOrderWithSmallestTimer()
+    {
+        OrderBase[] allOrders = FindObjectsOfType<OrderBase>();
+
+        OrderBase orderWithSmallestTimer = null;
+        float smallestTimer = float.MaxValue;
+
+        foreach (OrderBase order in allOrders)
+        {
+            if (order.timer < smallestTimer)
+            {
+                smallestTimer = order.timer;
+                orderWithSmallestTimer = order;
+            }
+        }
+
+        return orderWithSmallestTimer;
+    }
+
 }
