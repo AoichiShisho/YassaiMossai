@@ -22,7 +22,7 @@ public class OrderGenerator : MonoBehaviour
     void Start()
     {
         vegetableTypesCount = System.Enum.GetValues(typeof(VegetableType)).Length;
-        InvokeRepeating("GenerateRandomOrder", 2.0f, 5.0f);
+        InvokeRepeating("GenerateRandomOrder", 2.0f, 10.0f);
 
         CreateNewOrderRow();
     }
