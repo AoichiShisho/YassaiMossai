@@ -38,6 +38,8 @@ public class PlayerPlantCollector : MonoBehaviour
         {
             { "RipeCabbage", 0 },
             { "RipeTomato", 0 },
+            { "RottenCabbage", 0 },
+            { "RottenTomato", 0 }
         };
 
     }
@@ -129,6 +131,8 @@ public class PlayerPlantCollector : MonoBehaviour
         }
 
         if (isNearDeliveryPoint && GetTotalVeggies() > 0 && orderToDeliver != null) {
+            veggieCounts["RottenCabbage"] = 0;
+            veggieCounts["RottenTomato"] = 0;
             deliveredAmount += GetTotalVeggies();
 
 
@@ -148,11 +152,7 @@ public class PlayerPlantCollector : MonoBehaviour
             UpdateVeggieTexts();
 
             if (deliveredText != null) {
-                PlantGrowth.State state = plantGrowth.CurrentState;
-                if (state != PlantGrowth.State.Death)
-                {
-                    deliveredText.text = deliveredAmount.ToString();
-                }
+                deliveredText.text = deliveredAmount.ToString();
             }
 
             if (ScoreManager.Instance != null)
@@ -212,7 +212,8 @@ public class PlayerPlantCollector : MonoBehaviour
     private int GetTotalVeggies()
     {
         int total = 0;
-        foreach (var count in veggieCounts.Values) {
+        foreach (var count in veggieCounts.Values)
+        {
             total += count;
         }
 

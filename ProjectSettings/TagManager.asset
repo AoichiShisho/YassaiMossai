@@ -14,6 +14,8 @@ TagManager:
   - Dirt
   - Bomb
   - Field
+  - RottenCabbage
+  - RottenTomato
   layers:
   - Default
   - TransparentFX
