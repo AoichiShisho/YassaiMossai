@@ -20,90 +20,71 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         SetDeviceFromSavedPreferences();
-        // SetInputDevice(InputSystem.devices[0]);
         animator = GetComponent<Animator>();
         SetDustEffectPosition();
     }
 
     void Update()
     {
+        SetDeviceFromSavedPreferences();
         GetInput();
-        Move();
         UpdateAnimation();
         UpdateDustEffect();
     }
 
-    public void SetInputDevice(InputDevice device) {
-        currentDevice = device;
-        Debug.Log($"[Player {playerIndex}] Input device set: {device.displayName}");
-    }
-
     private void SetDeviceFromSavedPreferences()
     {
-        int deviceId = PlayerPrefs.GetInt($"PlayerDeviceID_{playerIndex}", -1);
-        if (deviceId != -1) {
-            var device = InputSystem.GetDeviceById(deviceId);
-            if (device != null) {
-                SetInputDevice(device);
-                Debug.Log($"[Player {playerIndex}] Device set to: {device.displayName}");
-            } else {
-                Debug.LogError($"[Player {playerIndex}] Saved device not found. Device ID: {deviceId}");
-            }
-        } else {
-            Debug.LogWarning($"[Player {playerIndex}] No device ID saved in PlayerPrefs.");
-        }
+        int deviceInt = PlayerPrefs.GetInt($"PlayerDeviceID_{playerIndex}", -1);
+        if (deviceInt == -1) Debug.LogError($"PlayerDeviceID_{playerIndex} is not set.");
+        else currentDevice = InputSystem.GetDeviceById(deviceInt);
     }
 
     void GetInput()
     {
         if (currentDevice != null) {
-            if (currentDevice is Gamepad gamepad) {
-                movementInput = gamepad.leftStick.ReadValue();
-                if (gamepad.leftStickButton.wasPressedThisFrame) {
-                    isRunning = !isRunning;
-                }
+            if (currentDevice is Gamepad) {
+                GamepadMovement();
             }
             else if (currentDevice is Keyboard) {
-                movementInput.x = Input.GetAxis("Horizontal");
-                movementInput.y = Input.GetAxis("Vertical");
-                isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+                KeyboardMovement();
             }
             else {
                 Debug.LogError("PlayerMovement: Unknown device type");
-                return;
             }
         }
     }
 
-    void Move()
+    void GamepadMovement()
+    {
+        Gamepad gamepad = currentDevice as Gamepad;
+        movementInput = gamepad.leftStick.ReadValue();
+        if (gamepad.leftStickButton.wasPressedThisFrame) {
+            isRunning = !isRunning;
+        }
+
+        // Move and Rotate
+        ApplyMovementAndRotation(movementInput);
+    }
+
+    void KeyboardMovement()
+    {
+        movementInput.x = Input.GetAxis("Horizontal");
+        movementInput.y = Input.GetAxis("Vertical");
+        isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+
+        // Move and Rotate
+        ApplyMovementAndRotation(movementInput);
+    }
+
+    void ApplyMovementAndRotation(Vector2 movementInput)
     {
         float currentSpeed = isRunning ? runSpeed : walkSpeed;
-        Vector3 movement = new Vector3(movementInput.x, 0, movementInput.y);
-        transform.Translate(movement * currentSpeed * Time.deltaTime, Space.World);
+        Vector3 movement = new Vector3(movementInput.x, 0, movementInput.y) * currentSpeed * Time.deltaTime;
+        transform.Translate(movement, Space.World);
 
         if (movement != Vector3.zero) {
-            if (currentDevice is Gamepad) {
-                // Gamepadを使用している場合、左スティックの方向にキャラクターを向ける
-                Quaternion toRotation = Quaternion.LookRotation(movement, Vector3.up);
-                transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-            } else if (currentDevice is Keyboard) {
-                // キーボードを使用している場合、移動方向にキャラクターを向ける
-                RotateTowardsMovementDirection(movement);
-            }
-        }
-    }
-
-    void RotateTowardsMovementDirection(Vector3 direction)
-    {
-        if (direction != Vector3.zero) {
-            if (currentDevice is Keyboard) {
-                Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
-                Quaternion yRotation = Quaternion.Euler(0, toRotation.eulerAngles.y, 0);
-                transform.rotation = Quaternion.Slerp(transform.rotation, yRotation, rotationSpeed * Time.deltaTime);
-            } else if (currentDevice is Gamepad) {
-                var rotationDirection = new Vector3(movementInput.x, 0, movementInput.y);
-                transform.rotation = Quaternion.LookRotation(rotationDirection);
-            }
+            Quaternion toRotation = Quaternion.LookRotation(movement, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
     }
 
