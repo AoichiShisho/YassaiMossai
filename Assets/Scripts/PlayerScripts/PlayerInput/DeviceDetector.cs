@@ -9,19 +9,25 @@ public class DeviceDetector : MonoBehaviour
 {
     public List<Dropdown> playerDeviceDropdowns;
     public List<Image> playerDeviceImage;
+    public List<Text> playerDeviceTexts;
     private List<InputDevice> devices;
     private Dictionary<int, int> playerDeviceSelections = new Dictionary<int, int>();
-    public List<Text> playerDeviceTexts;
-    private int initialPlayerCount;
+    private static int playerCount;
 
     public Sprite gamepadSprite;
     public Sprite keyboardSprite;
+    public Button increasePlayerButton;
+    public Button decreasePlayerButton;
+
+    public int initialPlayerCount = 2;
+    public int maxPlayerCount = 4;
+    public int minPlayerCount = 2;
 
     void Start() {
         DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
-        // プレイヤー数における初期値を2に設定
-        initialPlayerCount = 2;
+        playerCount = initialPlayerCount;
 
         devices = new List<InputDevice>();
         foreach (var device in InputSystem.devices) {
@@ -29,20 +35,44 @@ public class DeviceDetector : MonoBehaviour
                 devices.Add(device);
             }
         }
+
         UpdateDeviceDropdowns();
+        UpdatePlayerUI();
         InputSystem.onDeviceChange += OnDeviceChanged;
 
-        for (int i = 0; i < initialPlayerCount; i++) {
-            if (devices.Count > i) {
-                UpdateDeviceImage(i, devices[i]);
-            }
-        }
+        increasePlayerButton.onClick.AddListener(IncreasePlayerCount);
+        decreasePlayerButton.onClick.AddListener(DecreasePlayerCount);
     }
-
 
     void Update() 
     {
         UpdateDeviceTexts();
+    }
+
+    private void IncreasePlayerCount()
+    {
+        if (playerCount < maxPlayerCount) {
+            playerCount++;
+            UpdatePlayerUI();
+        }
+    }
+
+    private void DecreasePlayerCount()
+    {
+        if (playerCount > minPlayerCount) {
+            playerCount--;
+            UpdatePlayerUI();
+        }
+    }
+
+    private void UpdatePlayerUI()
+    {
+        for (int i = 0; i < maxPlayerCount; i++) {
+            bool isActive = i < playerCount;
+            if (i < playerDeviceDropdowns.Count) playerDeviceDropdowns[i].gameObject.SetActive(isActive);
+            if (i < playerDeviceImage.Count) playerDeviceImage[i].gameObject.SetActive(isActive);
+            if (i < playerDeviceTexts.Count) playerDeviceTexts[i].gameObject.SetActive(isActive);
+        }
     }
 
     private void UpdateDeviceTexts()
@@ -79,14 +109,14 @@ public class DeviceDetector : MonoBehaviour
     private void InitializeDeviceSelections() 
     {
         playerDeviceSelections.Clear();
-        for (int i = 0; i < Math.Min(devices.Count, initialPlayerCount); i++) {
+        for (int i = 0; i < Math.Min(devices.Count, minPlayerCount); i++) {
             playerDeviceSelections.Add(i, devices[i].deviceId);
         }
     }
 
     private void UpdateDeviceDropdowns()
     {
-        for (int i = 0; i < initialPlayerCount; i++) {
+        for (int i = 0; i < minPlayerCount; i++) {
             playerDeviceDropdowns[i].onValueChanged.RemoveAllListeners();
 
             int localIndex = i;
@@ -184,7 +214,7 @@ public class DeviceDetector : MonoBehaviour
     {
         // すべてのプレイヤーがデバイスを選択しているか確認する
         bool allPlayersHaveDevices = true;
-        for (int i = 0; i < initialPlayerCount; i++) {
+        for (int i = 0; i < minPlayerCount; i++) {
             if (!playerDeviceSelections.ContainsKey(i) || playerDeviceSelections[i] == -1) {
                 // プレイヤーがデバイスを選択していない場合
                 allPlayersHaveDevices = false;
@@ -198,6 +228,32 @@ public class DeviceDetector : MonoBehaviour
         } else {
             // 一人でもデバイスを選択していないプレイヤーがいる場合、エラーメッセージを出力
             Debug.LogError("Cannot perform transition to Main: One or more players have not selected a device.");
+        }
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Main")
+        {
+            SetActivePlayers();
+        }
+    }
+
+    void SetActivePlayers()
+    {
+        GameObject playersParent = GameObject.Find("Players");
+        if (playersParent != null)
+        {
+            for (int i = 0; i < playersParent.transform.childCount; i++)
+            {
+                GameObject child = playersParent.transform.GetChild(i).gameObject;
+                bool shouldBeActive = i <= playerCount;
+                child.SetActive(shouldBeActive);
+            }
+        }
+        else
+        {
+            Debug.LogError("Players object not found in the scene!");
         }
     }
 
