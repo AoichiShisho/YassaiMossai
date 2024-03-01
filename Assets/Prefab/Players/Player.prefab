@@ -1906,7 +1906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIndex: 0
-  dustEffect: {fileID: 0}
+  dustEffect: {fileID: 4206702422860405965}
 --- !u!114 &5285073477636088151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6305,6 +6305,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1259275cdb7964a09ab5ad3c3d736e4c, type: 3}
+--- !u!198 &4206702422860405965 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6011693414635983676, guid: 1259275cdb7964a09ab5ad3c3d736e4c, type: 3}
+  m_PrefabInstance: {fileID: 7569678923109257201}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7578339868843290836 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 11062369394753317, guid: 1259275cdb7964a09ab5ad3c3d736e4c, type: 3}

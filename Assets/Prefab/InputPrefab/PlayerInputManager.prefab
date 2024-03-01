@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3612216593578748749
+--- !u!1 &1587202043879865579
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2932346414274165573}
-  - component: {fileID: 3924674607346772290}
+  - component: {fileID: 8889784709984538090}
+  - component: {fileID: -3352142940298291933}
   m_Layer: 0
-  m_Name: DeviceDetector
+  m_Name: PlayerInputManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2932346414274165573
+--- !u!4 &8889784709984538090
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3612216593578748749}
+  m_GameObject: {fileID: 1587202043879865579}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3924674607346772290
+--- !u!114 &-3352142940298291933
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3612216593578748749}
+  m_GameObject: {fileID: 1587202043879865579}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 052c79c1eb4ec4e049a082863ef1de45, type: 3}
+  m_Script: {fileID: 11500000, guid: 575d4e25b637e41c5be76704c484a2d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deviceDropdown: {fileID: 7867528340993758168, guid: de382b4b7394f445fbdbf784ef540d7e, type: 3}
-  playerMovement: {fileID: 3032722363683986150, guid: 401ab2b34d98b43ff9774ad341ac6e23, type: 3}
+  playerDeviceDropdowns: []
