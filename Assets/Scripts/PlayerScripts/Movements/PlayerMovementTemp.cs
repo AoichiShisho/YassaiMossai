@@ -15,7 +15,7 @@ public class PlayerMovementTemp : MonoBehaviour
 
     private InputDevice currentDevice;
 
-    public ParticleSystem dustEffect;
+    //public ParticleSystem dustEffect;
 
     void Start()
     {
@@ -24,7 +24,7 @@ public class PlayerMovementTemp : MonoBehaviour
         // SetInputDevice(InputSystem.devices[0]);
         animator = GetComponent<Animator>();
 
-        SetDustEffectPosition();
+        //SetDustEffectPosition();
     }
 
     void Update()
@@ -32,7 +32,7 @@ public class PlayerMovementTemp : MonoBehaviour
         GetInput();
         Move();
         UpdateAnimation();
-        UpdateDustEffect();
+        //UpdateDustEffect();
     }
 
     public void SetInputDevice(InputDevice device) {
@@ -116,35 +116,35 @@ public class PlayerMovementTemp : MonoBehaviour
         animator.SetFloat("Speed", speed);
     }
 
-    void UpdateDustEffect()
-    {
-        var emission = dustEffect.emission;
-        var main = dustEffect.main;
-        var shape = dustEffect.shape;
+    //void UpdateDustEffect()
+    //{
+    //    var emission = dustEffect.emission;
+    //    var main = dustEffect.main;
+    //    var shape = dustEffect.shape;
 
-        if (movementInput.magnitude > 0) {
-            if (!dustEffect.isPlaying) {
-                dustEffect.Play();
-            }
-            if (isRunning) {
-                emission.rateOverTime = 20;
-                main.startLifetime = 0.5f;
-                shape.radius = 0.3f;
-            } else {
-                emission.rateOverTime = 10;
-                main.startLifetime = 1.0f;
-                shape.radius = 0.1f;
-            }
-        } else {
-            if (dustEffect.isPlaying) {
-                dustEffect.Stop();
-            }
-        }
-    }
+    //    if (movementInput.magnitude > 0) {
+    //        if (!dustEffect.isPlaying) {
+    //            dustEffect.Play();
+    //        }
+    //        if (isRunning) {
+    //            emission.rateOverTime = 20;
+    //            main.startLifetime = 0.5f;
+    //            shape.radius = 0.3f;
+    //        } else {
+    //            emission.rateOverTime = 10;
+    //            main.startLifetime = 1.0f;
+    //            shape.radius = 0.1f;
+    //        }
+    //    } else {
+    //        if (dustEffect.isPlaying) {
+    //            dustEffect.Stop();
+    //        }
+    //    }
+    //}
 
-    private void SetDustEffectPosition()
-    {
-        var main = dustEffect.main;
-        main.simulationSpace = ParticleSystemSimulationSpace.World;
-    }
+    //private void SetDustEffectPosition()
+    //{
+    //    var main = dustEffect.main;
+    //    main.simulationSpace = ParticleSystemSimulationSpace.World;
+    //}
 }
