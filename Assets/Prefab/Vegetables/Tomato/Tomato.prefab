@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 2061735900649030743}
   - component: {fileID: 7225812914143450374}
   m_Layer: 6
-  m_Name: death_Cabbage
-  m_TagString: RipeCabbage
+  m_Name: tomato5
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,10 +142,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7694598894125752036}
-  - component: {fileID: 240044171218695136}
+  - component: {fileID: -8616884590334996854}
   m_Layer: 6
   m_Name: Tomato
-  m_TagString: Plant
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -170,7 +170,7 @@ Transform:
   - {fileID: 733542055772386949}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &240044171218695136
+--- !u!114 &-8616884590334996854
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,16 +179,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8514923128055281105}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1adb6e1ab99954833847662be2c7e042, type: 3}
+  m_Script: {fileID: 11500000, guid: a9c00df88dadf4adfaeac4df07859d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  VeggieType: 2
+  GrowthState: 0
   growthStages:
   - {fileID: 5895251599573127289}
   - {fileID: 6396009059837968826}
   - {fileID: 627888819068335302}
   - {fileID: 5604007550583308162}
   - {fileID: 7739021851965342292}
-  growthTime: 5
 --- !u!1001 &321968186193660311
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -430,7 +431,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bcccb89fbfa3e448882e27a9b03d2949, type: 3}
       propertyPath: m_TagString
-      value: RipeTomato
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1292963482310000228, guid: bcccb89fbfa3e448882e27a9b03d2949, type: 3}
       propertyPath: m_Layer

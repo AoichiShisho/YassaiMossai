@@ -3,34 +3,47 @@ using UnityEngine;
 public class PlayerPlantController : MonoBehaviour
 {
     public Vegetable[] vegetables;
-    private int currentVeggieIndex = 0;
+    private int currentVegetableIndex = 0;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            currentVeggieIndex = 0;
+            SwitchVegetable(1);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            currentVeggieIndex = 1;
+            SwitchVegetable(-1);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            PlantVeggie();
+            PlantVegetable();
         }
     }
 
-    void PlantVeggie()
+    private void SwitchVegetable(int direction)
+    {
+        currentVegetableIndex += direction;
+        if (currentVegetableIndex >= vegetables.Length) currentVegetableIndex = 0;
+        else if (currentVegetableIndex < 0) currentVegetableIndex = vegetables.Length - 1;
+        Debug.Log("currentVegetableIndex: " + vegetables[currentVegetableIndex]);
+
+    }
+
+    private void PlantVegetable()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f))
+        float maxDistance = 1f;
+        LayerMask dirtLayer = LayerMask.GetMask("DirtLayer");
+        Debug.DrawRay(transform.position, transform.forward, Color.red, 2f);
+        if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance, dirtLayer))
         {
             Dirt dirt = hit.collider.GetComponent<Dirt>();
             if (dirt != null && dirt.currentState == Dirt.State.Tilled)
             {
-                Instantiate(vegetables[currentVeggieIndex], hit.point, Quaternion.identity);
+                Vector3 plantPosition = dirt.transform.position + new Vector3(0, 0.1f, 0);
+                Instantiate(vegetables[currentVegetableIndex], plantPosition, Quaternion.identity);
             }
         }
     }

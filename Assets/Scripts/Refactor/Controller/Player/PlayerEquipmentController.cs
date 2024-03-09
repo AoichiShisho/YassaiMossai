@@ -16,11 +16,11 @@ public class PlayerEquipmentController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            CycleEquipment(1);
+            SwitchEquipment(1);
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
-            CycleEquipment(-1);
+            SwitchEquipment(-1);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -29,7 +29,7 @@ public class PlayerEquipmentController : MonoBehaviour
         }
     }
 
-    private void CycleEquipment(int direction)
+    private void SwitchEquipment(int direction)
     {
         currentEquipmentIndex += direction;
         if (currentEquipmentIndex >= equipments.Length) currentEquipmentIndex = 0;

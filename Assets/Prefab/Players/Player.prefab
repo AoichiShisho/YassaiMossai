@@ -1818,6 +1818,7 @@ GameObject:
   - component: {fileID: -8524331919472964715}
   - component: {fileID: 3661820662785444727}
   - component: {fileID: 5029151695444252657}
+  - component: {fileID: 7354018654604508185}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1953,6 +1954,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a6222f7a49244588c7ccbe1a825236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7354018654604508185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2741815290209898058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace0a1fc9569742c4ab9e3b9649b0203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vegetables:
+  - {fileID: -8616884590334996854, guid: 65870f109042a4004a66626c9af1e5d5, type: 3}
+  - {fileID: -3114614408173696434, guid: b9f786898ccaa45f5a604922d70e470c, type: 3}
+  - {fileID: -5487878165553686599, guid: a39322e7277964c1b8dfeea4a09503f3, type: 3}
 --- !u!1 &2896722684787451004
 GameObject:
   m_ObjectHideFlags: 0

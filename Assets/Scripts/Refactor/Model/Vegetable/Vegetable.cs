@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Vegetable : MonoBehaviour
@@ -17,8 +18,41 @@ public class Vegetable : MonoBehaviour
     }
 
     public TypeEnum VeggieType;
-    public StateEnum GrowthState;
+    public StateEnum GrowthState = StateEnum.Unripped;
+    public GameObject[] growthStages;
 
-    // このVeggieの初期設定や成長、状態変化などの処理をここに実装
+    private void Start()
+    {
+        StartCoroutine(GrowthCycle());
+    }
+
+    private IEnumerator GrowthCycle()
+    {
+        for (int i = 0; i < growthStages.Length; i++)
+        {
+
+            foreach (GameObject stage in growthStages)
+            {
+                stage.SetActive(false);
+            }
+            growthStages[i].SetActive(true);
+
+            yield return new WaitForSeconds(5f);
+
+            if (i == growthStages.Length - 2)
+            {
+                GrowthState = StateEnum.Rotten;
+            }
+            else if (i == growthStages.Length - 3)
+            {
+                GrowthState = StateEnum.Ripped;
+            }
+            else
+            {
+                GrowthState = StateEnum.Unripped;
+            }
+        }
+
+    }
 }
 

@@ -11,7 +11,7 @@ public class Hoe : Equipment
         // Debug用のRayを表示
         //このrayを全てのrayの標準にしたい
         //utilとかに記述したい
-        Debug.DrawRay(rayStart, -transform.right * maxDistance, Color.red, 2f);
+        //Debug.DrawRay(rayStart, -transform.right * maxDistance, Color.red, 2f);
 
         // LayerMaskを使って特定のレイヤーに反応するようにする
         LayerMask dirtLayer = LayerMask.GetMask("DirtLayer");
@@ -23,7 +23,8 @@ public class Hoe : Equipment
             {
                 dirt.Till();
                 Debug.Log("Dirt has been tilled.");
-            } else
+            }
+            else
             {
                 Debug.Log("Hit object is not Dirt.");
                 Debug.Log("Hit Object: " + hit.collider.gameObject.name);
@@ -34,6 +35,7 @@ public class Hoe : Equipment
             Debug.Log("No hit detected.");
         }
     }
+
 }
 
 
