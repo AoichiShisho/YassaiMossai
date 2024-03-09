@@ -11,7 +11,9 @@ public class NewPlayerState : MonoBehaviour
             Destroy(CurrentEquipment.gameObject);
         }
 
-        CurrentEquipment = Instantiate(newEquipment, transform);
+        Vector3 spawnPosition = transform.TransformPoint(new Vector3(0, 0.5f, 0.3f));
+
+        CurrentEquipment = Instantiate(newEquipment, spawnPosition, Quaternion.identity, transform);
     }
 }
 

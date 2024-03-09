@@ -25,9 +25,9 @@ public class PlayerPlantController : MonoBehaviour
     private void SwitchVegetable(int direction)
     {
         currentVegetableIndex += direction;
+
         if (currentVegetableIndex >= vegetables.Length) currentVegetableIndex = 0;
         else if (currentVegetableIndex < 0) currentVegetableIndex = vegetables.Length - 1;
-        Debug.Log("currentVegetableIndex: " + vegetables[currentVegetableIndex]);
 
     }
 
@@ -36,7 +36,8 @@ public class PlayerPlantController : MonoBehaviour
         RaycastHit hit;
         float maxDistance = 1f;
         LayerMask dirtLayer = LayerMask.GetMask("DirtLayer");
-        Debug.DrawRay(transform.position, transform.forward, Color.red, 2f);
+        //Debug.DrawRay(transform.position, transform.forward, Color.red, 2f);
+
         if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance, dirtLayer))
         {
             Dirt dirt = hit.collider.GetComponent<Dirt>();
