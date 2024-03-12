@@ -1928,7 +1928,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipments:
   - {fileID: 4563038194106277766, guid: 79e087f9ae83b4f72acd8ea126924f56, type: 3}
-  - {fileID: -1950633786956708343, guid: e8334e04f217b4cbba8770add19af312, type: 3}
+  - {fileID: 614603684401489848, guid: cb68908bdbbc947ccb61c0a403dcf1c7, type: 3}
+  - {fileID: -3132813838250933352, guid: e8334e04f217b4cbba8770add19af312, type: 3}
 --- !u!114 &3661820662785444727
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,7 +1,12 @@
 using UnityEngine;
 
-public class Basket : Equipment
+public class FullBasket : Equipment
 {
+    private void Awake()
+    {
+        isFull = true;
+    }
+
     public override void Use()
     {
         RaycastHit hit;
@@ -15,6 +20,7 @@ public class Basket : Equipment
 
         // LayerMaskを使って特定のレイヤーに反応するようにする
         LayerMask plantLayer = LayerMask.GetMask("PlantLayer");
+        LayerMask storeLayer = LayerMask.GetMask("StoreLayer");
 
         if (Physics.Raycast(rayStart, -transform.forward, out hit, maxDistance, plantLayer))
         {
@@ -35,10 +41,13 @@ public class Basket : Equipment
                 }
             }
         }
+        else if (Physics.Raycast(rayStart, -transform.forward, out hit, maxDistance, storeLayer)) {
+            Debug.Log("納品の実装");
+            isFull = false;
+        }
         else
         {
             Debug.Log("No parent detected for the hit object.");
         }
     }
 }
-
