@@ -25,6 +25,7 @@ public class PlayerPlantCollector : MonoBehaviour
     [SerializeField] private PlayerState playerState;
 
     public ParticleSystem disposeEffect;
+    public ParticleSystem deliverEffect;
 
     void Start()
     {
@@ -121,11 +122,14 @@ public class PlayerPlantCollector : MonoBehaviour
     private void DeliverVeggie() {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange);
         bool isNearDeliveryPoint = false;
+        GameObject deliveryPointGameObject = null;
+
         OrderBase orderToDeliver = FindOrderWithSmallestTimer();
 
         foreach (var hitCollider in hitColliders) {
             if (hitCollider.gameObject.tag == "DeliveryPoint") {
                 isNearDeliveryPoint = true;
+                deliveryPointGameObject = hitCollider.gameObject;
                 break;
             }
         }
@@ -135,6 +139,10 @@ public class PlayerPlantCollector : MonoBehaviour
             veggieCounts["RottenTomato"] = 0;
             deliveredAmount += GetTotalVeggies();
 
+            // エフェクトの再生
+            Vector3 effectPosition = deliveryPointGameObject.transform.position + Vector3.up * (deliveryPointGameObject.GetComponent<Collider>().bounds.size.y + 0.5f);
+            Instantiate(deliverEffect, effectPosition, Quaternion.identity);
+            deliverEffect.Play();
 
             if (veggieCounts["RipeCabbage"] > 0)
             {

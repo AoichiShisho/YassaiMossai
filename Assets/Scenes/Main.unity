@@ -1244,6 +1244,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RunSmoke
       objectReference: {fileID: 0}
+    - target: {fileID: 457605480235331608, guid: a6e69b70dfe884c1cbb12af0392fa57b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2413809573937214354, guid: a6e69b70dfe884c1cbb12af0392fa57b, type: 3}
       propertyPath: pickedCabbage
       value: 
@@ -1272,6 +1276,10 @@ PrefabInstance:
       propertyPath: playerState
       value: 
       objectReference: {fileID: 423999728}
+    - target: {fileID: 3074962013704710412, guid: a6e69b70dfe884c1cbb12af0392fa57b, type: 3}
+      propertyPath: deliverEffect
+      value: 
+      objectReference: {fileID: 4210916259046151106, guid: ee9c77d2b95204996a77de2ae87ee225, type: 3}
     - target: {fileID: 3074962013704710412, guid: a6e69b70dfe884c1cbb12af0392fa57b, type: 3}
       propertyPath: deliveredText
       value: 
@@ -2034,6 +2042,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1467327951}
     m_Modifications:
+    - target: {fileID: 457605480235331608, guid: a6e69b70dfe884c1cbb12af0392fa57b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2413809573937214354, guid: a6e69b70dfe884c1cbb12af0392fa57b, type: 3}
       propertyPath: pickedCabbage
       value: 
@@ -3655,6 +3667,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1467327951}
     m_Modifications:
+    - target: {fileID: 457605480235331608, guid: a6e69b70dfe884c1cbb12af0392fa57b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2413809573937214354, guid: a6e69b70dfe884c1cbb12af0392fa57b, type: 3}
       propertyPath: pickedCabbage
       value: 
