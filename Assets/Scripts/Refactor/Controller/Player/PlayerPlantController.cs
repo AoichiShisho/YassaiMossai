@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerPlantController : MonoBehaviour
 {
     public Vegetable[] vegetables;
     private int currentVegetableIndex = 0;
+    public Image currentVegetableImage;
 
     private void Update()
     {
@@ -20,6 +22,8 @@ public class PlayerPlantController : MonoBehaviour
         {
             PlantVegetable();
         }
+
+        currentVegetableImage.sprite = vegetables[currentVegetableIndex].vegetableSprite;
     }
 
     private void SwitchVegetable(int direction)
@@ -28,6 +32,8 @@ public class PlayerPlantController : MonoBehaviour
 
         if (currentVegetableIndex >= vegetables.Length) currentVegetableIndex = 0;
         else if (currentVegetableIndex < 0) currentVegetableIndex = vegetables.Length - 1;
+
+        currentVegetableImage.sprite = vegetables[currentVegetableIndex].vegetableSprite;
 
     }
 
@@ -48,5 +54,6 @@ public class PlayerPlantController : MonoBehaviour
             }
         }
     }
+
 }
 

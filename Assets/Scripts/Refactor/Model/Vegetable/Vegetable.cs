@@ -1,14 +1,15 @@
 using System.Collections;
 using UnityEngine;
 
+public enum VegetableType
+{
+    Eggplant,
+    Pumpkin,
+    Tomato
+}
+
 public class Vegetable : MonoBehaviour
 {
-    public enum TypeEnum
-    {
-        Eggplant,
-        Pumpkin,
-        Tomato
-    }
 
     public enum StateEnum
     {
@@ -17,9 +18,10 @@ public class Vegetable : MonoBehaviour
         Rotten
     }
 
-    public TypeEnum VeggieType;
+    public VegetableType vegetableType;
     public StateEnum GrowthState = StateEnum.Unripped;
     public GameObject[] growthStages;
+    public Sprite vegetableSprite;
 
     private void Start()
     {

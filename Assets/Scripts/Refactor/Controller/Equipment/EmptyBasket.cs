@@ -32,7 +32,7 @@ public class EmptyBasket : Equipment
                 {
                     Destroy(parentTransform.gameObject);
                     isFull = true;
-                    Debug.Log($"Harvested {vegetable.VeggieType} in state {vegetable.GrowthState}.");
+                    Debug.Log($"Harvested {vegetable.vegetableType} in state {vegetable.GrowthState}.");
                 }
                 else
                 {

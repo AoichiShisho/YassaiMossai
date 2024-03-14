@@ -138,13 +138,13 @@ public class PlayerPlantCollector : MonoBehaviour
 
             if (veggieCounts["RipeCabbage"] > 0)
             {
-                orderToDeliver.DeliverVegetable(VegetableType.Cabbage);
+                //orderToDeliver.DeliverVegetable(VegetableType.Eggplant);
                 print("キャベツ");
                 veggieCounts["RipeCabbage"] = 0;
             }
             if (veggieCounts["RipeTomato"] > 0)
             {
-                orderToDeliver.DeliverVegetable(VegetableType.Tomato);
+                //orderToDeliver.DeliverVegetable(VegetableType.Tomato);
                 print("トマト");
                 veggieCounts["RipeTomato"] = 0;
             }

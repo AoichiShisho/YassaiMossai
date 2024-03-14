@@ -1,7 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FullBasket : Equipment
 {
+    public List<Vegetable> harvestedVegetables = new List<Vegetable>();
+
     private void Awake()
     {
         isFull = true;
@@ -31,8 +34,11 @@ public class FullBasket : Equipment
                 Vegetable vegetable = parentTransform.GetComponent<Vegetable>();
                 if (vegetable != null && (vegetable.GrowthState == Vegetable.StateEnum.Ripped || vegetable.GrowthState == Vegetable.StateEnum.Rotten))
                 {
+                    harvestedVegetables.Add(vegetable);
+                    Debug.Log($"Harvested vegetables count: {harvestedVegetables.Count}");
+                    Debug.Log(System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(this));
                     Destroy(parentTransform.gameObject);
-                    Debug.Log($"Harvested {vegetable.VeggieType} in state {vegetable.GrowthState}.");
+                    Debug.Log($"Harvested {vegetable.vegetableType} in state {vegetable.GrowthState}.");
                 }
                 else
                 {
@@ -42,7 +48,13 @@ public class FullBasket : Equipment
             }
         }
         else if (Physics.Raycast(rayStart, -transform.forward, out hit, maxDistance, storeLayer)) {
-            Debug.Log("納品の実装");
+            OrderBase[] allOrders = FindObjectsOfType<OrderBase>();
+
+            foreach (OrderBase order in allOrders)
+            {
+                // デリバーメソッドをよぶ
+            }
+
             isFull = false;
         }
         else

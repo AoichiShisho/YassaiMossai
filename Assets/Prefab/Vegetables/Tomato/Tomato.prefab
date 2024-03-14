@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c00df88dadf4adfaeac4df07859d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VeggieType: 2
+  vegetableType: 2
   GrowthState: 0
   growthStages:
   - {fileID: 5895251599573127289}
@@ -190,6 +190,7 @@ MonoBehaviour:
   - {fileID: 627888819068335302}
   - {fileID: 5604007550583308162}
   - {fileID: 7739021851965342292}
+  vegetableSprite: {fileID: 21300000, guid: ae48b45c0cac8437babb2265d6792c0f, type: 3}
 --- !u!1001 &321968186193660311
 PrefabInstance:
   m_ObjectHideFlags: 0
