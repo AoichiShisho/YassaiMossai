@@ -1972,7 +1972,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   playerState: {fileID: 0}
-  disposeEffect: {fileID: 0}
+  disposeEffect: {fileID: 5949364910427050439, guid: e6e2de0c5ba43405b84aff464f808930, type: 3}
+  deliverEffect: {fileID: 4210916259046151106, guid: ee9c77d2b95204996a77de2ae87ee225, type: 3}
 --- !u!114 &3146283227292269619
 MonoBehaviour:
   m_ObjectHideFlags: 0
