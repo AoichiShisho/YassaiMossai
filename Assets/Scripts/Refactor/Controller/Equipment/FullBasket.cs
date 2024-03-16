@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class FullBasket : Equipment
 {
-    public List<Vegetable> harvestedVegetables = new List<Vegetable>();
+
+    public List<VegetableData> harvestedVegetablesData = new List<VegetableData>();
 
     private void Awake()
     {
@@ -34,11 +35,25 @@ public class FullBasket : Equipment
                 Vegetable vegetable = parentTransform.GetComponent<Vegetable>();
                 if (vegetable != null && (vegetable.GrowthState == Vegetable.StateEnum.Ripped || vegetable.GrowthState == Vegetable.StateEnum.Rotten))
                 {
-                    harvestedVegetables.Add(vegetable);
-                    Debug.Log($"Harvested vegetables count: {harvestedVegetables.Count}");
+                    var playerState = transform.parent.GetComponent<NewPlayerState>();
+                    if (playerState != null)
+                    {
+                        if (playerState.HarvestedVegetablesData.Count >= 3)
+                        {
+                            Debug.Log("Cannot harvest any more vegetables. Basket is full.");
+                            return;
+                        }
+
+                        VegetableData data = new VegetableData(vegetable.vegetableType, vegetable.GrowthState);
+                        playerState.AddHarvestedVegetableData(data);
+                        Debug.Log($"Harvested {vegetable.vegetableType} in state {vegetable.GrowthState}.");
+                    }
+                    else
+                    {
+                        Debug.LogError("NewPlayerState component not found on parent object.");
+                    }
                     Debug.Log(System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(this));
                     Destroy(parentTransform.gameObject);
-                    Debug.Log($"Harvested {vegetable.vegetableType} in state {vegetable.GrowthState}.");
                 }
                 else
                 {
@@ -52,7 +67,7 @@ public class FullBasket : Equipment
 
             foreach (OrderBase order in allOrders)
             {
-                // デリバーメソッドをよぶ
+                
             }
 
             isFull = false;

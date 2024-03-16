@@ -1,7 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EmptyBasket : Equipment
 {
+    public List<VegetableData> harvestedVegetablesData = new List<VegetableData>();
+
     private void Awake()
     {
         isFull = false;
@@ -30,9 +33,19 @@ public class EmptyBasket : Equipment
                 Vegetable vegetable = parentTransform.GetComponent<Vegetable>();
                 if (vegetable != null && (vegetable.GrowthState == Vegetable.StateEnum.Ripped || vegetable.GrowthState == Vegetable.StateEnum.Rotten))
                 {
+                    var playerState = transform.parent.GetComponent<NewPlayerState>();
+                    if (playerState != null)
+                    {
+                        VegetableData data = new VegetableData(vegetable.vegetableType, vegetable.GrowthState);
+                        playerState.AddHarvestedVegetableData(data);
+                        Debug.Log($"Harvested {vegetable.vegetableType} in state {vegetable.GrowthState}.");
+                    }
+                    else
+                    {
+                        Debug.LogError("NewPlayerState component not found on parent object.");
+                    }
                     Destroy(parentTransform.gameObject);
                     isFull = true;
-                    Debug.Log($"Harvested {vegetable.vegetableType} in state {vegetable.GrowthState}.");
                 }
                 else
                 {

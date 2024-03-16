@@ -29,7 +29,12 @@ public class PlayerEquipmentController : MonoBehaviour
         {
             newPlayerState.CurrentEquipment?.Use();
 
-            if (newPlayerState.CurrentEquipment.isFull)
+            //すでにfullバスケットオブジェクトの際は新しくインスタンス化されないような処理
+            if (newPlayerState.CurrentEquipment.isFull && currentEquipmentIndex == fullBasket)
+            {
+                currentEquipmentIndex = fullBasket;
+            }
+            else if (newPlayerState.CurrentEquipment.isFull)
             {
                 currentEquipmentIndex = fullBasket;
                 EquipCurrentItem();
