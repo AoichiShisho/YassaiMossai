@@ -4,7 +4,7 @@ using UnityEngine;
 public class FullBasket : Equipment
 {
 
-    public List<VegetableData> harvestedVegetablesData = new List<VegetableData>();
+    private List<VegetableData> harvestedVegetablesData = new List<VegetableData>();
 
     private void Awake()
     {
@@ -64,13 +64,26 @@ public class FullBasket : Equipment
         }
         else if (Physics.Raycast(rayStart, -transform.forward, out hit, maxDistance, storeLayer)) {
             OrderBase[] allOrders = FindObjectsOfType<OrderBase>();
+            bool isDelivered = false;
+            var playerState = transform.parent.GetComponent<NewPlayerState>();
 
-            foreach (OrderBase order in allOrders)
+            if (playerState != null)
             {
-                
+                foreach (OrderBase order in allOrders)
+                {
+                    isDelivered = order.CheckDeliveredVegetables(playerState.HarvestedVegetablesData);
+                    if (isDelivered)
+                    {
+                        Destroy(order.gameObject);
+                        Debug.Log("納品完了");
+                        break;
+                    }
+                }
+                if (isDelivered)
+                {
+                    isFull = false;
+                }
             }
-
-            isFull = false;
         }
         else
         {

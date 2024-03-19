@@ -89,9 +89,43 @@ public abstract class OrderBase : MonoBehaviour, IOrder
         return randomizedVegetables;
     }
 
-    protected void CheckDeliveredVegetables(Vegetable[] deliveredvegetables)
+    public bool CheckDeliveredVegetables(List<VegetableData> harvestedVegetablesData)
     {
-        //ここにユーザーの届けた野菜とOrderの野菜を比較
+
+        foreach (Vegetable vegetable in vegetables)
+        {
+            vegetable.isDelivered = false;
+        }
+
+        foreach (VegetableData data in harvestedVegetablesData)
+        {
+            bool isVegetableFound = false;
+            foreach (Vegetable vegetable in vegetables)
+            {
+                if (vegetable.vegetableType == data.vegetableType && !vegetable.isDelivered)
+                {
+                    vegetable.isDelivered = true;
+                    isVegetableFound = true;
+                    break;
+                }
+            }
+
+            if (!isVegetableFound)
+            {
+                return false;
+            }
+        }
+
+        foreach (Vegetable vegetable in vegetables)
+        {
+            if (!vegetable.isDelivered)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
+
 
 }

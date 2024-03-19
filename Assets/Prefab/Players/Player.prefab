@@ -1928,7 +1928,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipments:
   - {fileID: 4563038194106277766, guid: 79e087f9ae83b4f72acd8ea126924f56, type: 3}
-  - {fileID: 614603684401489848, guid: cb68908bdbbc947ccb61c0a403dcf1c7, type: 3}
+  - {fileID: 8951102350578158574, guid: 8639ea18cff064d6bbb6c5c6b9bd52da, type: 3}
   - {fileID: -3132813838250933352, guid: e8334e04f217b4cbba8770add19af312, type: 3}
 --- !u!114 &3661820662785444727
 MonoBehaviour:
@@ -1971,6 +1971,7 @@ MonoBehaviour:
   - {fileID: -8616884590334996854, guid: 65870f109042a4004a66626c9af1e5d5, type: 3}
   - {fileID: -3114614408173696434, guid: b9f786898ccaa45f5a604922d70e470c, type: 3}
   - {fileID: -5487878165553686599, guid: a39322e7277964c1b8dfeea4a09503f3, type: 3}
+  currentVegetableImage: {fileID: 0}
 --- !u!1 &2896722684787451004
 GameObject:
   m_ObjectHideFlags: 0
