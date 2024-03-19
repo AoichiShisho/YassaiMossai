@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 4040991495314678576}
   - component: {fileID: 5435447480457464619}
   - component: {fileID: 8113477325424288547}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabocya4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1310682209862389718
 Transform:
   m_ObjectHideFlags: 0
@@ -135,10 +135,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7868611792236865892}
   - {fileID: 300387406436808783}
   - {fileID: 4997205588920486789}
   - {fileID: 1310682209862389718}
-  - {fileID: 7868611792236865892}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-3114614408173696434
@@ -155,7 +155,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vegetableType: 1
   GrowthState: 0
-  growthStages: []
+  growthStages:
+  - {fileID: 7383999106236691422}
+  - {fileID: 1108132270127637237}
+  - {fileID: 5625687171580268863}
+  - {fileID: 6637495527259233629}
+  isDelivered: 0
   vegetableSprite: {fileID: 21300000, guid: ae460bc14fa2d48dd8732f917604aadb, type: 3}
 --- !u!1001 &2593536742575700202
 PrefabInstance:
@@ -210,19 +215,77 @@ PrefabInstance:
       value: kabocya3new
       objectReference: {fileID: 0}
     - target: {fileID: 7920814972150901205, guid: 467446ed1f6fc4584b3f40901b6b5982, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7920814972150901205, guid: 467446ed1f6fc4584b3f40901b6b5982, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7920814972150901205, guid: 467446ed1f6fc4584b3f40901b6b5982, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5086740544468876468}
+    - targetCorrespondingSourceObject: {fileID: 7920814972150901205, guid: 467446ed1f6fc4584b3f40901b6b5982, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5240725659044501852}
   m_SourcePrefab: {fileID: 100100000, guid: 467446ed1f6fc4584b3f40901b6b5982, type: 3}
 --- !u!4 &4997205588920486789 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7397078741858792303, guid: 467446ed1f6fc4584b3f40901b6b5982, type: 3}
   m_PrefabInstance: {fileID: 2593536742575700202}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5625687171580268863 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7920814972150901205, guid: 467446ed1f6fc4584b3f40901b6b5982, type: 3}
+  m_PrefabInstance: {fileID: 2593536742575700202}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &5086740544468876468
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5625687171580268863}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -9123307004316543008, guid: a4a90d0fcb1a54130bf73b8d3233c876, type: 3}
+--- !u!65 &5240725659044501852
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5625687171580268863}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.05967157, y: 0.061128944, z: 0.054915767}
+  m_Center: {x: -0.00963873, y: 0.006587487, z: -0.017436834}
 --- !u!1001 &4421715094495427072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -231,13 +294,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5635781358190900983}
     m_Modifications:
+    - target: {fileID: 1433657404143072082, guid: da22fd352824c4e3bac9260a351d3df2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3620320285065681141, guid: da22fd352824c4e3bac9260a351d3df2, type: 3}
       propertyPath: m_Name
       value: kabocya2
       objectReference: {fileID: 0}
     - target: {fileID: 3620320285065681141, guid: da22fd352824c4e3bac9260a351d3df2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620320285065681141, guid: da22fd352824c4e3bac9260a351d3df2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4140539456292340303, guid: da22fd352824c4e3bac9260a351d3df2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -279,6 +350,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5009913911755224290, guid: da22fd352824c4e3bac9260a351d3df2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -287,6 +362,11 @@ PrefabInstance:
 --- !u!4 &300387406436808783 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4140539456292340303, guid: da22fd352824c4e3bac9260a351d3df2, type: 3}
+  m_PrefabInstance: {fileID: 4421715094495427072}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1108132270127637237 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3620320285065681141, guid: da22fd352824c4e3bac9260a351d3df2, type: 3}
   m_PrefabInstance: {fileID: 4421715094495427072}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5511781427925401206
@@ -341,11 +421,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: kabocya1
       objectReference: {fileID: 0}
+    - target: {fileID: 3027813204125060520, guid: 89f4adf6f7760479ba7f2516c1e17c2a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3027813204125060520, guid: 89f4adf6f7760479ba7f2516c1e17c2a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89f4adf6f7760479ba7f2516c1e17c2a, type: 3}
+--- !u!1 &7383999106236691422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3027813204125060520, guid: 89f4adf6f7760479ba7f2516c1e17c2a, type: 3}
+  m_PrefabInstance: {fileID: 5511781427925401206}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7868611792236865892 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2400177523610408722, guid: 89f4adf6f7760479ba7f2516c1e17c2a, type: 3}

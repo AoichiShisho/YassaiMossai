@@ -21,6 +21,7 @@ public class Vegetable : MonoBehaviour
     public VegetableType vegetableType;
     public StateEnum GrowthState = StateEnum.Unripped;
     public GameObject[] growthStages;
+    public bool isDelivered = false;
     public Sprite vegetableSprite;
 
     private void Start()
